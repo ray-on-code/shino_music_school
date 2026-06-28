@@ -1,0 +1,14 @@
+{
+  "name": "shino-music-school-theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shino Music School テーマの Tailwind ビルド設定",
+  "scripts": {
+    "dev": "tailwindcss -i ./assets/src/app.css -o ./assets/css/app.css --watch",
+    "build": "tailwindcss -i ./assets/src/app.css -o ./assets/css/app.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4",
+    "tailwindcss": "^4"
+  }
+}

@@ -1,0 +1,17 @@
+# 環境変数（実値）
+.env
+
+# WordPress コア一式（コンテナ初回起動時に自動展開されるためコミットしない）
+/wp/
+
+# ただしテーマは themes/ 配下で別管理するので除外対象から外す
+# （/wp/ 配下にはテーマを置かない運用）
+
+# Node / Tailwind
+themes/*/node_modules/
+
+# OS / エディタ
+.DS_Store
+*.log
+.idea/
+.vscode/

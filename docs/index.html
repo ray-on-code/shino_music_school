@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;family=Noto+Serif+JP:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#F7F3EA;color:#3E3A33;font-family:'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:#7E8B6B;color:#fff}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes drift{0%{background-position:0 0}100%{background-position:160px 0}}
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes cueBounce{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(7px);opacity:.55}}
+</style>
+</helmet>
+<div style="position:relative">
+
+<!-- ================= HEADER ================= -->
+<header id="siteHeader" style="position:sticky;top:0;z-index:50;background:rgba(247,243,234,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(52,64,47,.08);transition:background .3s ease,box-shadow .3s ease">
+  <div id="siteHeaderInner" style="max-width:1200px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:16px;transition:padding .3s ease">
+    <a onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none;flex-shrink:0">
+      <img src="https://shino-music.com/_astro/ShinoharaMusicSchool.CpggLnVA.svg" alt="しのはら音楽教室" referrerpolicy="no-referrer" style="height:44px;width:auto;display:block">
+    </a>
+    <nav style="display:{{ navDisplay }};gap:2px;margin-left:auto">
+      <a onClick="{{ goLessons }}" style="{{ navLessons }}" style-hover="background:rgba(126,139,107,.13)">レッスン案内</a>
+      <a onClick="{{ goPrice }}" style="{{ navPrice }}" style-hover="background:rgba(126,139,107,.13)">料金</a>
+      <a onClick="{{ goGallery }}" style="{{ navGallery }}" style-hover="background:rgba(126,139,107,.13)">発表会・生徒の声</a>
+      <a onClick="{{ goAccess }}" style="{{ navAccess }}" style-hover="background:rgba(126,139,107,.13)">アクセス</a>
+      <a onClick="{{ goContact }}" style="{{ navContact }}" style-hover="background:rgba(126,139,107,.13)">お問い合わせ</a>
+    </nav>
+    <a onClick="{{ goContact }}" style="margin-left:{{ trialMl }};display:flex;align-items:center;gap:7px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:999px;padding:10px 16px;font:700 12.5px 'Noto Sans JP';letter-spacing:.03em;box-shadow:0 6px 16px rgba(214,122,76,.32);white-space:nowrap" style-hover="background:#c96f42">体験レッスン申込<span style="font-size:13px">→</span></a>
+    <button onClick="{{ toggleMenu }}" aria-label="menu" style="flex-shrink:0;width:44px;height:44px;border-radius:50%;border:1px solid rgba(52,64,47,.16);background:#fff;color:#34402F;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="background:#F7F3EA">☰</button>
+  </div>
+</header>
+
+<!-- ================= MOBILE / OVERLAY MENU ================= -->
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;background:rgba(52,64,47,.4);backdrop-filter:blur(3px)" onClick="{{ closeMenu }}">
+  <div onClick="{{ stop }}" style="position:absolute;top:0;right:0;height:100%;width:min(360px,86vw);background:#F7F3EA;box-shadow:-12px 0 40px rgba(52,64,47,.22);padding:22px 22px 32px;display:flex;flex-direction:column;animation:menuIn .25s ease;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+      <span style="font:600 13px 'Noto Serif JP';color:#7E8B6B;letter-spacing:.2em">MENU</span>
+      <button onClick="{{ closeMenu }}" style="width:40px;height:40px;border-radius:50%;border:1px solid rgba(52,64,47,.16);background:#fff;cursor:pointer;font-size:17px;color:#34402F">✕</button>
+    </div>
+    <a onClick="{{ goHome }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">HOME</span>トップ</a>
+    <a onClick="{{ goLessons }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">LESSON</span>レッスン案内</a>
+    <a onClick="{{ goPrice }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">PRICE</span>料金</a>
+    <a onClick="{{ goGallery }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">GALLERY</span>発表会・生徒の声</a>
+    <a onClick="{{ goAccess }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">ACCESS</span>アクセス</a>
+    <a onClick="{{ goContact }}" style="{{ mLink }}" style-hover="color:#7E8B6B"><span style="font:400 9px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">CONTACT</span>お問い合わせ</a>
+    <a onClick="{{ goContact }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;gap:8px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:14px;padding:16px;font:700 14px 'Noto Sans JP';box-shadow:0 8px 20px rgba(214,122,76,.32)">体験レッスンを申し込む<span>→</span></a>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+<!-- =========== HOME =========== -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+
+  <!-- HERO (pinned; ivory panel expands on scroll) -->
+  <section id="heroWrap" style="position:relative;height:165vh;background:#F7F3EA">
+  <div id="heroSection" style="position:sticky;top:0;height:100vh;min-height:560px;overflow:hidden;background:#F7F3EA">
+    <!-- bg photo (parallax) -->
+    <div id="heroBg" style="position:absolute;top:-8%;left:0;right:0;height:118%;background:repeating-linear-gradient(135deg,#d5dccf,#d5dccf 16px,#e3e8dd 16px,#e3e8dd 32px);will-change:transform">
+      <image-slot id="img-hero-bg" shape="rect" fit="cover" placeholder="教室のある町の風景・空" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(126,139,107,.08) 55%,rgba(126,139,107,.2));pointer-events:none"></div>
+    </div>
+    <!-- ivory curved panel -->
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none">
+      <path id="heroCurve" d="M0,0 L42,0 Q58,50 30,100 L0,100 Z" fill="#F7F3EA"></path>
+    <div style="position: absolute; left: 349px; top: 128px; width: clamp(120px,16vw,200px); height: clamp(200px,32vh,340px); background: radial-gradient(circle at 1.5px 1.5px,rgba(126,139,107,.55) 1.5px,transparent 2px); background-size: 17px 17px; -webkit-mask: linear-gradient(125deg,#000,rgba(0,0,0,.15) 70%,transparent); mask: linear-gradient(125deg,#000,rgba(0,0,0,.15) 70%,transparent); pointer-events: none"></div></svg>
+    <!-- concentric arc lines (bottom-left) -->
+    <svg viewBox="0 0 320 320" style="position:absolute;left:-70px;bottom:-70px;width:min(420px,52vw);height:min(420px,52vw);pointer-events:none;overflow:visible">
+      <g fill="none" stroke="#7E8B6B">
+        <circle cx="0" cy="320" r="120" stroke-opacity=".42" stroke-width="1.4"></circle>
+        <circle cx="0" cy="320" r="180" stroke-opacity=".3" stroke-width="1.4" stroke-dasharray="2 6"></circle>
+        <circle cx="0" cy="320" r="245" stroke-opacity=".24" stroke-width="1.4"></circle>
+        <circle cx="0" cy="320" r="305" stroke-opacity=".16" stroke-width="1.4" stroke-dasharray="2 6"></circle>
+      </g>
+    </svg>
+    <!-- dot scatter near the curve -->
+    
+    <!-- vertical heading -->
+    <div style="position:absolute;top:clamp(80px,13vh,140px);left:clamp(18px,5vw,72px);display:flex;gap:clamp(8px,1.2vw,16px);align-items:flex-start;z-index:3">
+      <h1 style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:600;color:#34402F;font-size:clamp(26px,4.4vw,50px);line-height:1.5;letter-spacing:.14em;margin:0">音を、楽しむ。<br>はじめの一歩を、<br>ここで。</h1>
+      <span style="writing-mode:vertical-rl;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.42em;color:#7E8B6B;margin-top:6px">BEGIN YOUR MUSIC HERE</span>
+    </div>
+    <!-- paragraph + CTA (over photo, bottom-right) -->
+    <div id="heroPhotoText" style="position:absolute;right:clamp(18px,5vw,72px);bottom:clamp(64px,11vh,92px);display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:16px;max-width:min(400px,66vw);z-index:3;will-change:opacity">
+      <p style="margin:0;color:#fff;font:400 14px/2 'Noto Sans JP';letter-spacing:.06em;text-shadow:0 1px 14px rgba(52,64,47,.55)">子どもから大人まで、初心者も大歓迎。<br>一人ひとりのペースに寄り添う、まちのピアノ教室です。</p>
+      <a onClick="{{ goContact }}" style="display:flex;align-items:center;gap:9px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:999px;padding:15px 26px;font:700 14px 'Noto Sans JP';letter-spacing:.04em;box-shadow:0 10px 26px rgba(214,122,76,.45)" style-hover="background:#c96f42">体験レッスンを申し込む<span style="font-size:15px">→</span></a>
+    </div>
+    <!-- scroll cue -->
+    <div id="scrollCue" style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;will-change:opacity;z-index:3">
+      <span style="font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.34em;color:#5a6b54">SCROLL</span>
+      <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(214,122,76,.95);box-shadow:0 6px 16px rgba(214,122,76,.45);animation:cueBounce 1.8s ease-in-out infinite"><span style="color:#fff;font-size:13px;line-height:1">↓</span></span>
+    </div>
+  </div>
+  </section>
+
+  <!-- 地域・想い (scroll reveal over photo) -->
+  <section style="position:relative;overflow:hidden;background:#7E8B6B;color:#F7F3EA">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#7E8B6B,#7E8B6B 16px,#86926f 16px,#86926f 32px)"></div>
+    <image-slot id="img-area-bg" shape="rect" fit="cover" placeholder="教室周辺の町並み・外観" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(126,139,107,.55),rgba(52,64,47,.5));pointer-events:none"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto;padding:clamp(64px,12vh,140px) clamp(18px,4vw,40px);display:flex;justify-content:space-between;align-items:center;gap:clamp(24px,4vw,60px);flex-wrap:wrap-reverse;min-height:80vh">
+      <div style="flex:1;min-width:280px;max-width:560px;display:flex;flex-direction:column;gap:24px">
+        <p data-reveal="" style="margin:0;font:400 14.5px/2.2 'Noto Sans JP';letter-spacing:.04em;color:#fff;text-shadow:0 1px 12px rgba(52,64,47,.4)">しのはら音楽教室は、福岡市南区長住で続けてきた、地域に根ざした小さなピアノ教室です。子どもからご年配の方まで、世代を超えて音楽を楽しむ場所でありたいと考えています。</p>
+        <p data-reveal="" style="margin:0;font:400 14.5px/2.2 'Noto Sans JP';letter-spacing:.04em;color:rgba(255,255,255,.92);text-shadow:0 1px 12px rgba(52,64,47,.4)">「弾けた!」という小さな喜びを、一つひとつ一緒に。技術の上達だけでなく、音楽が一生の友だちになるような時間を、この町で届けていきます。</p>
+        <a data-reveal="" onClick="{{ goContact }}" style="align-self:flex-start;display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;cursor:pointer;font:600 13.5px 'Noto Sans JP';letter-spacing:.04em" style-hover="opacity:.8"><span style="width:30px;height:30px;border-radius:50%;background:#D67A4C;display:flex;align-items:center;justify-content:center;font-size:13px">→</span>体験レッスンのご案内</a>
+      </div>
+      <div style="display:flex;gap:clamp(10px,1.6vw,22px);align-items:flex-start">
+        <h2 data-reveal="" data-reveal-dist="70" data-reveal-dur="0.9" style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:600;color:#fff;font-size:clamp(28px,4.6vw,48px);line-height:1.5;letter-spacing:.16em;margin:0;text-shadow:0 2px 18px rgba(52,64,47,.4)">音楽のある暮らしを、<br>このまちで。</h2>
+        <span data-reveal="" data-reveal-dist="70" data-reveal-dur="0.9" style="writing-mode:vertical-rl;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.4em;color:rgba(247,243,234,.85);margin-top:6px">MUSIC IN YOUR TOWN</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- NEWS -->
+  <section style="background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,6vw,68px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="display:flex;align-items:baseline;gap:14px;margin-bottom:24px">
+        <h2 style="margin:0;font:600 19px 'Noto Serif JP';color:#34402F;letter-spacing:.1em">お知らせ</h2>
+        <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.28em">NEWS</span>
+      </div>
+      <div data-stagger="" style="display:flex;flex-direction:column">
+        <a style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:17px 4px;border-top:1px solid rgba(52,64,47,.1);cursor:pointer;text-decoration:none;color:inherit" style-hover="background:#FBF8F0"><span style="font:500 13px 'IBM Plex Mono';color:#8a857a;width:96px">2026.06.20</span><span style="background:#7E8B6B;color:#fff;font:500 11px 'Noto Sans JP';letter-spacing:.06em;padding:4px 11px;border-radius:6px">発表会</span><span style="flex:1;min-width:200px;font:400 14px/1.7 'Noto Sans JP'">夏の発表会「ちいさなコンサート」の参加申込を受付中です。</span></a>
+        <a style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:17px 4px;border-top:1px solid rgba(52,64,47,.1);cursor:pointer;text-decoration:none;color:inherit" style-hover="background:#FBF8F0"><span style="font:500 13px 'IBM Plex Mono';color:#8a857a;width:96px">2026.06.01</span><span style="background:#7E8B6B;color:#fff;font:500 11px 'Noto Sans JP';letter-spacing:.06em;padding:4px 11px;border-radius:6px">体験</span><span style="flex:1;min-width:200px;font:400 14px/1.7 'Noto Sans JP'">大人のための初心者コースに、平日夜の時間帯を新設しました。</span></a>
+        <a style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:17px 4px;border-top:1px solid rgba(52,64,47,.1);border-bottom:1px solid rgba(52,64,47,.1);cursor:pointer;text-decoration:none;color:inherit" style-hover="background:#FBF8F0"><span style="font:500 13px 'IBM Plex Mono';color:#8a857a;width:96px">2026.05.12</span><span style="background:#7E8B6B;color:#fff;font:500 11px 'Noto Sans JP';letter-spacing:.06em;padding:4px 11px;border-radius:6px">お知らせ</span><span style="flex:1;min-width:200px;font:400 14px/1.7 'Noto Sans JP'">ゴールデンウィーク期間の休講についてご案内します。</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 STRENGTHS -->
+  <section style="position:relative;overflow:hidden">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(18px,4vw,40px);position:relative">
+      <div data-reveal="" style="text-align:center;margin-bottom:clamp(34px,5vw,52px)">
+        <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">WHY SHINOHARA</span>
+        <h2 style="margin:10px 0 0;font:600 clamp(23px,3.4vw,32px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">しのはら音楽教室の、4つの魅力</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(16px,2.2vw,26px)">
+        <div data-reveal="" style="display:flex;gap:18px;background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(52,64,47,.07)"><span style="flex-shrink:0;width:54px;height:54px;border-radius:14px;background:#EEF0E6;color:#7E8B6B;display:flex;align-items:center;justify-content:center;font:600 22px 'Noto Serif JP'">個</span><div><h3 style="margin:2px 0 8px;font:700 16px 'Noto Sans JP';color:#34402F;letter-spacing:.04em">一人ひとりに合わせた個別指導</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">目標やペースは人それぞれ。レベルや目的に合わせて、レッスン内容を丁寧に組み立てます。</p></div></div>
+        <div data-reveal="" style="display:flex;gap:18px;background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(52,64,47,.07)"><span style="flex-shrink:0;width:54px;height:54px;border-radius:14px;background:#EEF0E6;color:#7E8B6B;display:flex;align-items:center;justify-content:center;font-size:24px">♪</span><div><h3 style="margin:2px 0 8px;font:700 16px 'Noto Sans JP';color:#34402F;letter-spacing:.04em">本番の経験が積める発表会</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">年に一度の発表会をはじめ、人前で弾く機会を大切に。達成感が次への自信になります。</p></div></div>
+        <div data-reveal="" style="display:flex;gap:18px;background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(52,64,47,.07)"><span style="flex-shrink:0;width:54px;height:54px;border-radius:14px;background:#EEF0E6;color:#7E8B6B;display:flex;align-items:center;justify-content:center;font-size:24px">♡</span><div><h3 style="margin:2px 0 8px;font:700 16px 'Noto Sans JP';color:#34402F;letter-spacing:.04em">アットホームで通いやすい</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">緊張せず、自分の音と向き合える空間。「また来たい」と思える雰囲気を心がけています。</p></div></div>
+        <div data-reveal="" style="display:flex;gap:18px;background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(52,64,47,.07)"><span style="flex-shrink:0;width:54px;height:54px;border-radius:14px;background:#EEF0E6;color:#7E8B6B;display:flex;align-items:center;justify-content:center;font:600 20px 'Noto Serif JP'">大</span><div><h3 style="margin:2px 0 8px;font:700 16px 'Noto Sans JP';color:#34402F;letter-spacing:.04em">大人・初心者も大歓迎</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">「楽譜が読めなくても大丈夫?」もちろんです。はじめての一音から、一緒に楽しみましょう。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 講師紹介 (moved to top) -->
+  <section style="background:#fff">
+    <div data-stagger="" style="max-width:1080px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(18px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,3.6vw,48px);align-items:center">
+      <image-slot id="img-teacher" shape="rounded" radius="22" fit="cover" placeholder="講師の顔写真" style="min-height:320px;height:100%;box-shadow:0 16px 40px rgba(52,64,47,.12)"></image-slot>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">PIANO TEACHER</span>
+        <div style="display:flex;align-items:baseline;gap:14px"><h2 style="margin:0;font:600 clamp(24px,3vw,32px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">講師名 篠原朋子</h2><span style="font:400 11px 'IBM Plex Mono';color:#8a857a;letter-spacing:.2em">PIANO INSTRUCTOR</span></div>
+        <p style="margin:0;font:400 13.5px/2 'Noto Sans JP';color:#5d584f">「音楽って楽しい！あの曲が弾けた！」その喜びを何より大切にしています。一人ひとりの「弾いてみたい」という気持ちを尊重し、目標に寄り添ったレッスンを心がけています。</p>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:2px">
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:56px;flex-shrink:0">経歴</span><span style="font:400 13px/1.8 'Noto Sans JP';color:#3E3A33"><div>3歳よりヤマハ音楽教室にてピアノを始める</div><div>ヤマハ指導グレードを取得</div><div>全日本エレクトーン指導協会に所属</div><div>ヤマハ福重音楽教室、自宅にて指導中<br></div></span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:56px;flex-shrink:0">資格</span><span style="font:400 13px/1.8 'Noto Sans JP';color:#3E3A33">ヤマハグレード指導</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HALF SPLIT BLOCKS -->
+  <section style="background:#fff">
+    <div style="max-width:1180px;margin:0 auto;padding:clamp(36px,5vw,60px) clamp(18px,4vw,40px);display:flex;flex-direction:column;gap:clamp(18px,2.4vw,30px)">
+      <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));border-radius:22px;overflow:hidden;box-shadow:0 14px 36px rgba(52,64,47,.08)">
+        <image-slot id="img-lesson" shape="rect" fit="cover" placeholder="レッスンの様子" style="min-height: 260px; height: 100%; width: 100%"></image-slot>
+        <div style="background:#7E8B6B;color:#F7F3EA;padding:clamp(28px,3.6vw,46px);display:flex;flex-direction:column;justify-content:center;gap:14px"><span style="font:500 10px 'IBM Plex Mono';letter-spacing:.3em;color:rgba(247,243,234,.75)">LESSON</span><h3 style="margin:0;font:600 clamp(20px,2.6vw,26px) 'Noto Serif JP';letter-spacing:.08em">レッスンについて</h3><p style="margin:0;font:300 13.5px/2 'Noto Sans JP';color:rgba(247,243,234,.9)">お子さま向けから大人の趣味、再開組まで。目的に合わせた多彩なコースをご用意しています。</p><a onClick="{{ goLessons }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;cursor:pointer;border:1px solid rgba(247,243,234,.5);border-radius:999px;padding:11px 20px;font:600 12.5px 'Noto Sans JP';margin-top:4px" style-hover="background:rgba(247,243,234,.14)">コースを見る<span style="color:#D67A4C">→</span></a></div>
+      </div>
+      <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));border-radius:22px;overflow:hidden;box-shadow:0 14px 36px rgba(52,64,47,.08)">
+        <div style="background:#34402F;color:#F7F3EA;padding:clamp(28px,3.6vw,46px);display:flex;flex-direction:column;justify-content:center;gap:14px;order:2"><span style="font:500 10px 'IBM Plex Mono';letter-spacing:.3em;color:rgba(247,243,234,.7)">EVENT</span><h3 style="margin:0;font:600 clamp(20px,2.6vw,26px) 'Noto Serif JP';letter-spacing:.08em">発表会・イベント</h3><p style="margin:0;font:300 13.5px/2 'Noto Sans JP';color:rgba(247,243,234,.88)">年に一度の発表会や季節のミニコンサート。練習の成果を発表できる、心に残る舞台です。</p><a onClick="{{ goGallery }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;cursor:pointer;border:1px solid rgba(247,243,234,.4);border-radius:999px;padding:11px 20px;font:600 12.5px 'Noto Sans JP';margin-top:4px" style-hover="background:rgba(247,243,234,.12)">様子を見る<span style="color:#D67A4C">→</span></a></div>
+        <image-slot id="img-event" shape="rect" fit="cover" placeholder="発表会のステージ" style="min-height: 260px; height: 100%; order: 1; width: 100%"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- LESSON FLOW -->
+  <section style="position:relative;overflow:hidden">
+    <div style="max-width:1100px;margin:0 auto;padding:clamp(48px,7vw,84px) clamp(18px,4vw,40px);position:relative;display:flex;gap:clamp(24px,4vw,56px);flex-wrap:wrap;align-items:flex-start">
+      <div data-reveal="" style="display:flex;gap:14px;align-items:flex-start">
+        <h2 style="writing-mode:vertical-rl;font-family:'Noto Serif JP',serif;font-weight:600;color:#34402F;font-size:clamp(26px,3.6vw,38px);line-height:1.5;letter-spacing:.16em;margin:0">レッスンの流れ</h2>
+        <span style="writing-mode:vertical-rl;font:500 10px 'IBM Plex Mono';letter-spacing:.36em;color:#7E8B6B;margin-top:4px">3 STEPS</span>
+      </div>
+      <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:16px">
+        <div data-reveal="" style="display:flex;gap:20px;align-items:flex-start;background:#fff;border-radius:18px;padding:24px 26px;box-shadow:0 8px 24px rgba(52,64,47,.07)"><span style="font:600 30px 'Noto Serif JP';color:#D67A4C;line-height:1;flex-shrink:0;width:54px">01</span><div><h3 style="margin:0 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">体験レッスン</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">まずは教室の雰囲気を体験。ご希望やお悩みをお聞かせください。</p></div></div>
+        <div data-reveal="" style="display:flex;gap:20px;align-items:flex-start;background:#fff;border-radius:18px;padding:24px 26px;box-shadow:0 8px 24px rgba(52,64,47,.07)"><span style="font:600 30px 'Noto Serif JP';color:#D67A4C;line-height:1;flex-shrink:0;width:54px">02</span><div><h3 style="margin:0 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">ご入会</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">通う曜日・時間を一緒に決めます。教材もご相談しながら準備します。</p></div></div>
+        <div data-reveal="" style="display:flex;gap:20px;align-items:flex-start;background:#fff;border-radius:18px;padding:24px 26px;box-shadow:0 8px 24px rgba(52,64,47,.07)"><span style="font:600 30px 'Noto Serif JP';color:#D67A4C;line-height:1;flex-shrink:0;width:54px">03</span><div><h3 style="margin:0 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">通常レッスン</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">一人ひとりのペースで、無理なく着実に。発表会という目標も支えます。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE EXCERPT -->
+  <section style="background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(44px,6vw,72px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px">
+        <div><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">VOICE</span><h2 style="margin:8px 0 0;font:600 clamp(22px,3vw,30px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">生徒さん・保護者の声</h2></div>
+        <a onClick="{{ goGallery }}" style="display:flex;align-items:center;gap:8px;color:#34402F;text-decoration:none;cursor:pointer;font:600 13px 'Noto Sans JP'" style-hover="color:#7E8B6B">もっと見る<span style="color:#D67A4C">→</span></a>
+      </div>
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 34px 'Noto Serif JP';color:#7E8B6B;line-height:.6">"</span><p style="margin:6px 0 18px;font:400 13.5px/1.95 'Noto Sans JP';color:#3E3A33">楽譜が全く読めない状態から始めましたが、好きな曲を1曲弾けるようになりました。毎週のレッスンが楽しみです。</p><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 9px 'IBM Plex Mono';color:#7E8B6B">40s</span><span style="font:500 12px 'Noto Sans JP';color:#5d584f">大人・趣味コース 40代女性</span></div></div>
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 34px 'Noto Serif JP';color:#7E8B6B;line-height:.6">"</span><p style="margin:6px 0 18px;font:400 13.5px/1.95 'Noto Sans JP';color:#3E3A33">人見知りの娘が、先生のおかげで発表会の舞台に立てました。本人の自信につながっています。</p><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 9px 'IBM Plex Mono';color:#7E8B6B">7yo</span><span style="font:500 12px 'Noto Sans JP';color:#5d584f">小学2年生の保護者</span></div></div>
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 34px 'Noto Serif JP';color:#7E8B6B;line-height:.6">"</span><p style="margin:6px 0 18px;font:400 13.5px/1.95 'Noto Sans JP';color:#3E3A33">10年ぶりにピアノを再開。ブランクに合わせて進めてくださるので、無理なく続けられています。</p><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 9px 'IBM Plex Mono';color:#7E8B6B">30s</span><span style="font:500 12px 'Noto Sans JP';color:#5d584f">再開コース 30代男性</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS EXCERPT -->
+  <section>
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(44px,6vw,72px) clamp(18px,4vw,40px)">
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(18px,2.6vw,32px);align-items:center">
+        <image-slot id="img-map-thumb" shape="rounded" radius="20" fit="cover" placeholder="地図サムネイル（Googleマップ等）" style="display:block;width:100%;min-height:230px;height:100%;box-shadow:0 12px 30px rgba(52,64,47,.1)"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:12px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">ACCESS</span><h2 style="margin:0;font:600 clamp(21px,2.8vw,28px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">アクセス</h2><p style="margin:0;font:400 13.5px/2 'Noto Sans JP';color:#5d584f">福岡市南区長住、閑静な住宅街の一角。<br>白い建物が目印です。駐車スペースもございます。</p><a onClick="{{ goAccess }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;color:#34402F;text-decoration:none;cursor:pointer;border:1px solid rgba(52,64,47,.2);border-radius:999px;padding:11px 20px;font:600 12.5px 'Noto Sans JP';margin-top:4px" style-hover="border-color:#7E8B6B;color:#7E8B6B">アクセス詳細<span style="color:#D67A4C">→</span></a></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</sc-if>
+
+      </main></div>
+    
+  
+
+
+
+<!-- =========== LESSONS =========== -->
+<sc-if value="{{ isLessons }}" hint-placeholder-val="{{ false }}">
+<div>
+  <section style="position:relative;overflow:hidden;background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);position:relative">
+      <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.32em">LESSON</span>
+      <h1 style="margin:10px 0 0;font:600 clamp(26px,4vw,40px) 'Noto Serif JP';color:#34402F;letter-spacing:.1em">レッスン案内</h1>
+      <p style="margin:14px 0 0;font:400 14px/2 'Noto Sans JP';color:#5d584f;max-width:560px">年齢や目的に合わせた4つのコース。どのコースも、一人ひとりに合わせた個別レッスンです。</p>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section>
+    <div data-stagger="" style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(52,64,47,.08)"><image-slot id="img-course-kids" shape="rect" fit="cover" placeholder="子どものレッスン" style="min-height:150px;display:block"></image-slot><div style="padding:24px"><span style="background:#7E8B6B;color:#fff;font:500 10px 'Noto Sans JP';letter-spacing:.08em;padding:4px 10px;border-radius:6px">3歳〜小学生</span><h3 style="margin:14px 0 8px;font:700 18px 'Noto Sans JP';color:#34402F">子どもコース</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">音感やリズム感を育みながら、楽譜を読む力も少しずつ。「楽しい」を入り口に基礎を身につけます。</p></div></div>
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(52,64,47,.08)"><image-slot id="img-course-adult" shape="rect" fit="cover" placeholder="大人のレッスン" style="min-height:150px;display:block"></image-slot><div style="padding:24px"><span style="background:#7E8B6B;color:#fff;font:500 10px 'Noto Sans JP';letter-spacing:.08em;padding:4px 10px;border-radius:6px">大人・趣味</span><h3 style="margin:14px 0 8px;font:700 18px 'Noto Sans JP';color:#34402F">大人コース</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">弾きたい曲を中心に、自分のペースで。お仕事帰りに通える夜の時間帯もご用意しています。</p></div></div>
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(52,64,47,.08)"><image-slot id="img-course-beginner" shape="rect" fit="cover" placeholder="鍵盤に触れる手" style="min-height:150px;display:block"></image-slot><div style="padding:24px"><span style="background:#7E8B6B;color:#fff;font:500 10px 'Noto Sans JP';letter-spacing:.08em;padding:4px 10px;border-radius:6px">はじめて</span><h3 style="margin:14px 0 8px;font:700 18px 'Noto Sans JP';color:#34402F">初心者コース</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">楽譜が読めなくても大丈夫。ドの位置から、一音ずつ。安心してはじめられます。</p></div></div>
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(52,64,47,.08)"><image-slot id="img-course-return" shape="rect" fit="cover" placeholder="楽譜と演奏" style="min-height:150px;display:block"></image-slot><div style="padding:24px"><span style="background:#7E8B6B;color:#fff;font:500 10px 'Noto Sans JP';letter-spacing:.08em;padding:4px 10px;border-radius:6px">経験者・再開</span><h3 style="margin:14px 0 8px;font:700 18px 'Noto Sans JP';color:#34402F">再開・経験者コース</h3><p style="margin:0;font:400 13px/1.9 'Noto Sans JP';color:#5d584f">ブランクがあっても心配いりません。これまでの経験を活かし、もう一度音楽を楽しみましょう。</p></div></div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <section style="background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="text-align:center;margin-bottom:28px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">FLOW</span><h2 style="margin:8px 0 0;font:600 clamp(22px,3vw,30px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">入会までの流れ</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <div data-reveal="" style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 32px 'Noto Serif JP';color:#D67A4C">01</span><h3 style="margin:8px 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">体験レッスン</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">教室の雰囲気を体験。ご希望をお聞かせください。</p></div>
+        <div data-reveal="" style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 32px 'Noto Serif JP';color:#D67A4C">02</span><h3 style="margin:8px 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">ご入会</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">曜日・時間を相談して決定。教材も準備します。</p></div>
+        <div data-reveal="" style="background:#F7F3EA;border-radius:18px;padding:26px"><span style="font:600 32px 'Noto Serif JP';color:#D67A4C">03</span><h3 style="margin:8px 0 6px;font:700 16px 'Noto Sans JP';color:#34402F">通常レッスン</h3><p style="margin:0;font:400 13px/1.85 'Noto Sans JP';color:#5d584f">自分のペースで着実に。発表会も支えます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div style="max-width:820px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="text-align:center;margin-bottom:28px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.3em">FAQ</span><h2 style="margin:8px 0 0;font:600 clamp(22px,3vw,30px) 'Noto Serif JP';color:#34402F;letter-spacing:.08em">よくあるご質問</h2></div>
+      <div data-stagger="" style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(52,64,47,.06);overflow:hidden"><button onClick="{{ faqToggle0 }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:20px 22px;background:none;border:none;cursor:pointer;text-align:left"><span style="font:600 16px 'Noto Serif JP';color:#7E8B6B;flex-shrink:0">Q</span><span style="flex:1;font:600 14px 'Noto Sans JP';color:#34402F">楽器を持っていなくても大丈夫ですか?</span><span style="color:#D67A4C;font-size:18px;transition:transform .2s;{{ faqRot0 }}">+</span></button><sc-if value="{{ faqIs0 }}" hint-placeholder-val="{{ false }}"><div style="padding:0 22px 20px 50px;font:400 13px/1.95 'Noto Sans JP';color:#5d584f">はい。教室には練習できるピアノがございます。ご自宅での練習用に、無理のない範囲での準備を一緒にご相談します。</div></sc-if></div>
+        <div style="background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(52,64,47,.06);overflow:hidden"><button onClick="{{ faqToggle1 }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:20px 22px;background:none;border:none;cursor:pointer;text-align:left"><span style="font:600 16px 'Noto Serif JP';color:#7E8B6B;flex-shrink:0">Q</span><span style="flex:1;font:600 14px 'Noto Sans JP';color:#34402F">何歳から始められますか?</span><span style="color:#D67A4C;font-size:18px;transition:transform .2s;{{ faqRot1 }}">+</span></button><sc-if value="{{ faqIs1 }}" hint-placeholder-val="{{ false }}"><div style="padding:0 22px 20px 50px;font:400 13px/1.95 'Noto Sans JP';color:#5d584f">3歳ごろから大人の方まで、どなたでも歓迎しています。年齢に合わせた進め方をご提案します。</div></sc-if></div>
+        <div style="background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(52,64,47,.06);overflow:hidden"><button onClick="{{ faqToggle2 }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:20px 22px;background:none;border:none;cursor:pointer;text-align:left"><span style="font:600 16px 'Noto Serif JP';color:#7E8B6B;flex-shrink:0">Q</span><span style="flex:1;font:600 14px 'Noto Sans JP';color:#34402F">振替レッスンはできますか?</span><span style="color:#D67A4C;font-size:18px;transition:transform .2s;{{ faqRot2 }}">+</span></button><sc-if value="{{ faqIs2 }}" hint-placeholder-val="{{ false }}"><div style="padding:0 22px 20px 50px;font:400 13px/1.95 'Noto Sans JP';color:#5d584f">事前にご連絡いただければ、可能な範囲で振替に対応しています。詳しくは体験時にご案内します。</div></sc-if></div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- =========== PRICE =========== -->
+<sc-if value="{{ isPrice }}" hint-placeholder-val="{{ false }}">
+<div>
+  <section style="position:relative;overflow:hidden;background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);position:relative">
+      <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.32em">PRICE</span>
+      <h1 style="margin:10px 0 0;font:600 clamp(26px,4vw,40px) 'Noto Serif JP';color:#34402F;letter-spacing:.1em">料金</h1>
+      <p style="margin:14px 0 0;font:400 14px/2 'Noto Sans JP';color:#5d584f;max-width:560px">月謝制のわかりやすい料金設定。表示はすべて税込みです。(金額は仮の参考価格です)</p>
+    </div>
+  </section>
+
+  <!-- FREE TRIAL HIGHLIGHT -->
+  <section data-reveal="">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(28px,3vw,40px) clamp(18px,4vw,40px) 0">
+      <div style="background:#34402F;border-radius:20px;padding:clamp(26px,3.4vw,40px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 16px 40px rgba(52,64,47,.16)">
+        <div><span style="font:500 10px 'IBM Plex Mono';color:#D67A4C;letter-spacing:.3em">TRIAL LESSON</span><h2 style="margin:8px 0 4px;font:600 clamp(20px,2.6vw,26px) 'Noto Serif JP';color:#fff;letter-spacing:.06em">体験レッスン</h2><p style="margin:0;font:300 12.5px 'Noto Sans JP';color:rgba(247,243,234,.8)">約30分・お一人さま1回限り</p></div>
+        <div style="display:flex;align-items:baseline;gap:6px"><span style="font:700 clamp(34px,5vw,52px) 'Noto Serif JP';color:#fff;line-height:1">無料</span><span style="font:400 13px 'Noto Sans JP';color:rgba(247,243,234,.8)">/ 0円</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE TABLE -->
+  <section data-reveal="">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(30px,4vw,48px) clamp(18px,4vw,40px)">
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 32px rgba(52,64,47,.08)">
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:520px">
+          <thead><tr style="background:#7E8B6B;color:#fff"><th style="text-align:left;padding:16px 22px;font:600 13px 'Noto Sans JP';letter-spacing:.04em">コース</th><th style="text-align:center;padding:16px 14px;font:600 13px 'Noto Sans JP'">回数 / 月</th><th style="text-align:center;padding:16px 14px;font:600 13px 'Noto Sans JP'">1回</th><th style="text-align:right;padding:16px 22px;font:600 13px 'Noto Sans JP'">月謝(税込)</th></tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(52,64,47,.09)"><td style="padding:18px 22px;font:600 14px 'Noto Sans JP';color:#34402F">子どもコース</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">月4回</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">30分</td><td style="text-align:right;padding:18px 22px;font:700 15px 'Noto Serif JP';color:#34402F">¥8,000</td></tr>
+            <tr style="border-bottom:1px solid rgba(52,64,47,.09);background:#FBF8F0"><td style="padding:18px 22px;font:600 14px 'Noto Sans JP';color:#34402F">大人コース</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">月2回</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">45分</td><td style="text-align:right;padding:18px 22px;font:700 15px 'Noto Serif JP';color:#34402F">¥7,000</td></tr>
+            <tr style="border-bottom:1px solid rgba(52,64,47,.09)"><td style="padding:18px 22px;font:600 14px 'Noto Sans JP';color:#34402F">初心者コース</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">月3回</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">40分</td><td style="text-align:right;padding:18px 22px;font:700 15px 'Noto Serif JP';color:#34402F">¥9,000</td></tr>
+            <tr style="background:#FBF8F0"><td style="padding:18px 22px;font:600 14px 'Noto Sans JP';color:#34402F">再開・経験者コース</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">月4回</td><td style="text-align:center;padding:18px 14px;font:400 13px 'Noto Sans JP';color:#5d584f">45分</td><td style="text-align:right;padding:18px 22px;font:700 15px 'Noto Serif JP';color:#34402F">¥12,000</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px">
+        <div style="background:#fff;border-radius:14px;padding:20px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">ENTRY FEE</span><div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span style="font:600 16px 'Noto Sans JP';color:#34402F">入会金</span><span style="font:700 18px 'Noto Serif JP';color:#34402F;margin-left:auto">¥5,000</span></div></div>
+        <div style="background:#fff;border-radius:14px;padding:20px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">MATERIALS</span><div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span style="font:600 16px 'Noto Sans JP';color:#34402F">教材費</span><span style="font:700 14px 'Noto Serif JP';color:#34402F;margin-left:auto">実費</span></div></div>
+        <div style="background:#fff;border-radius:14px;padding:20px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.2em">EVENT</span><div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span style="font:600 16px 'Noto Sans JP';color:#34402F">発表会費</span><span style="font:700 14px 'Noto Serif JP';color:#34402F;margin-left:auto">別途</span></div></div>
+      </div>
+      <p style="margin:16px 0 26px;font:400 11.5px/1.8 'Noto Sans JP';color:#8a857a">※ 上記は仮の参考価格です。きょうだい割引・年間費用など、詳しくは体験レッスン時にご案内します。</p>
+      <div style="text-align:center"><a onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:999px;padding:17px 36px;font:700 15px 'Noto Sans JP';letter-spacing:.04em;box-shadow:0 12px 30px rgba(214,122,76,.4)" style-hover="background:#c96f42">体験レッスンを申し込む<span style="font-size:16px">→</span></a></div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- =========== GALLERY & VOICE =========== -->
+<sc-if value="{{ isGallery }}" hint-placeholder-val="{{ false }}">
+<div>
+  <section style="position:relative;overflow:hidden;background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);position:relative">
+      <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.32em">GALLERY &amp; VOICE</span>
+      <h1 style="margin:10px 0 0;font:600 clamp(26px,4vw,40px) 'Noto Serif JP';color:#34402F;letter-spacing:.1em">発表会・生徒の声</h1>
+      <p style="margin:14px 0 0;font:400 14px/2 'Noto Sans JP';color:#5d584f;max-width:560px">練習を重ねた成果を発表する、特別な一日。会場の様子と、生徒さん・保護者のみなさまの声をご紹介します。</p>
+    </div>
+  </section>
+
+  <!-- EVENT GALLERY -->
+  <section>
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="display:flex;align-items:baseline;gap:14px;margin-bottom:22px"><h2 style="margin:0;font:600 20px 'Noto Serif JP';color:#34402F;letter-spacing:.08em">発表会・イベント</h2><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.26em">RECITAL</span></div>
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;grid-auto-rows:180px">
+        <image-slot id="img-gallery-1" shape="rounded" radius="18" fit="cover" placeholder="ステージ全景" style="grid-row:span 2;height:100%;display:block"></image-slot>
+        <image-slot id="img-gallery-2" shape="rounded" radius="18" fit="cover" placeholder="演奏する生徒" style="height:100%;display:block"></image-slot>
+        <image-slot id="img-gallery-3" shape="rounded" radius="18" fit="cover" placeholder="連弾" style="height:100%;display:block"></image-slot>
+        <image-slot id="img-gallery-4" shape="rounded" radius="18" fit="cover" placeholder="記念撮影" style="height:100%;display:block"></image-slot>
+        <image-slot id="img-gallery-5" shape="rounded" radius="18" fit="cover" placeholder="花束" style="height:100%;display:block"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section style="background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
+      <div data-reveal="" style="display:flex;align-items:baseline;gap:14px;margin-bottom:22px"><h2 style="margin:0;font:600 20px 'Noto Serif JP';color:#34402F;letter-spacing:.08em">生徒さん・保護者の声</h2><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.26em">VOICE</span></div>
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:center;gap:12px"><span style="width:46px;height:46px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 10px 'IBM Plex Mono';color:#7E8B6B">8yo</span><div><div style="font:600 13px 'Noto Sans JP';color:#34402F">小学3年生 ＆ 保護者</div><div style="font:400 11px 'Noto Sans JP';color:#8a857a">子どもコース・2年目</div></div></div><p style="margin:0;font:400 13px/1.95 'Noto Sans JP';color:#3E3A33">「練習しなさい」と言わなくても、自分から鍵盤に向かうように。発表会のあとは特に意欲的になりました。</p></div>
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:center;gap:12px"><span style="width:46px;height:46px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 10px 'IBM Plex Mono';color:#7E8B6B">50s</span><div><div style="font:600 13px 'Noto Sans JP';color:#34402F">50代・女性</div><div style="font:400 11px 'Noto Sans JP';color:#8a857a">大人コース・1年目</div></div></div><p style="margin:0;font:400 13px/1.95 'Noto Sans JP';color:#3E3A33">定年後の趣味にと思い始めました。憧れだったあの曲を、ゆっくりですが弾けるように。毎週が楽しみです。</p></div>
+        <div style="background:#F7F3EA;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:center;gap:12px"><span style="width:46px;height:46px;border-radius:50%;background:#dfe2d3;display:flex;align-items:center;justify-content:center;font:500 10px 'IBM Plex Mono';color:#7E8B6B">30s</span><div><div style="font:600 13px 'Noto Sans JP';color:#34402F">30代・男性</div><div style="font:400 11px 'Noto Sans JP';color:#8a857a">再開コース・半年</div></div></div><p style="margin:0;font:400 13px/1.95 'Noto Sans JP';color:#3E3A33">学生以来のピアノ。指が動かず焦りましたが、先生が根気よく付き合ってくださり少しずつ感覚が戻ってきました。</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- =========== ACCESS =========== -->
+<sc-if value="{{ isAccess }}" hint-placeholder-val="{{ false }}">
+<div>
+  <section style="position:relative;overflow:hidden;background:#fff">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);position:relative">
+      <span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.32em">ACCESS</span>
+      <h1 style="margin:10px 0 0;font:600 clamp(26px,4vw,40px) 'Noto Serif JP';color:#34402F;letter-spacing:.1em">アクセス</h1>
+      <p style="margin:14px 0 0;font:400 14px/2 'Noto Sans JP';color:#5d584f;max-width:560px">静かな住宅街にある、白い壁の小さな教室。電車でもお車でもお越しいただけます。</p>
+    </div>
+  </section>
+
+  <section data-reveal="">
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(36px,4vw,56px) clamp(18px,4vw,40px)">
+      <image-slot id="img-map-large" shape="rounded" radius="22" fit="cover" placeholder="Googleマップ等の地図" style="min-height:clamp(280px,40vw,420px);box-shadow:0 16px 40px rgba(52,64,47,.12);display:block"></image-slot>
+    </div>
+  </section>
+
+  <section data-reveal="">
+    <div style="max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px) clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(18px,2.6vw,32px);align-items:start">
+      <div data-stagger="" style="display:flex;flex-direction:column;gap:2px;background:#fff;border-radius:18px;padding:8px 0;box-shadow:0 10px 28px rgba(52,64,47,.07)">
+        <div style="display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid rgba(52,64,47,.08)"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:72px;flex-shrink:0;padding-top:2px">住所</span><span style="font:400 13.5px/1.8 'Noto Sans JP';color:#3E3A33">〒811-1362<br>福岡県福岡市南区長住7丁目8-27</span></div>
+        <div style="display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid rgba(52,64,47,.08)"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:72px;flex-shrink:0;padding-top:2px">最寄り</span><span style="font:400 13.5px/1.8 'Noto Sans JP';color:#3E3A33">最寄りバス停より徒歩すぐ<br>(詳しい経路はお問い合わせください)</span></div>
+        <div style="display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid rgba(52,64,47,.08)"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:72px;flex-shrink:0;padding-top:2px">駐車場</span><span style="font:400 13.5px/1.8 'Noto Sans JP';color:#3E3A33">あり(2台分)<br>近隣にコインパーキングもございます</span></div>
+        <div style="display:flex;gap:16px;padding:18px 24px"><span style="font:600 11px 'IBM Plex Mono';color:#7E8B6B;width:72px;flex-shrink:0;padding-top:2px">受付</span><span style="font:400 13.5px/1.8 'Noto Sans JP';color:#3E3A33">火〜土 10:00–20:00<br>定休:日・月</span></div>
+      </div>
+      <div data-stagger="" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <image-slot id="img-exterior" shape="rounded" radius="16" fit="cover" placeholder="教室外観" style="aspect-ratio:4/3;display:block"></image-slot>
+        <image-slot id="img-entrance" shape="rounded" radius="16" fit="cover" placeholder="入口・表札" style="aspect-ratio:4/3;display:block"></image-slot>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- =========== CONTACT =========== -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<div>
+  <section style="position:relative;overflow:hidden;background:#7E8B6B;color:#F7F3EA">
+    <div style="position:absolute;top:-50px;right:-10px;font:600 220px 'Noto Serif JP';color:rgba(247,243,234,.1);line-height:1;user-select:none">♪</div>
+    <div style="max-width:1080px;margin:0 auto;padding:clamp(44px,6vw,72px) clamp(18px,4vw,40px);position:relative">
+      <span style="font:500 10px 'IBM Plex Mono';color:#D67A4C;letter-spacing:.32em">CONTACT &amp; TRIAL</span>
+      <h1 style="margin:10px 0 0;font:600 clamp(26px,4vw,40px) 'Noto Serif JP';color:#fff;letter-spacing:.1em">お問い合わせ・体験申込</h1>
+      <p style="margin:14px 0 0;font:300 14px/2 'Noto Sans JP';color:rgba(247,243,234,.9);max-width:560px">体験レッスンのお申し込み・ご質問は、下記フォームまたはLINE・お電話でお気軽にどうぞ。無理な勧誘は一切いたしません。</p>
+    </div>
+  </section>
+
+  <section>
+    <div data-stagger="" style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(24px,3vw,40px);align-items:start">
+      <!-- FORM -->
+      <form onSubmit="{{ submitForm }}" data-stagger="" style="background:#fff;border-radius:22px;padding:clamp(24px,3vw,38px);box-shadow:0 14px 36px rgba(52,64,47,.08);display:flex;flex-direction:column;gap:18px">
+        <h2 style="margin:0;font:600 19px 'Noto Serif JP';color:#34402F;letter-spacing:.06em">体験レッスン申込フォーム</h2>
+        <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">お名前 <span style="color:#D67A4C">必須</span></span><input type="text" placeholder="例)そら 花子" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px 'Noto Sans JP';background:#FBF9F3;color:#3E3A33" style-focus="border-color:#7E8B6B;outline:none"></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">年齢 / 学年</span><input type="text" placeholder="例)小2 / 35歳" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px 'Noto Sans JP';background:#FBF9F3;color:#3E3A33" style-focus="border-color:#7E8B6B;outline:none"></label>
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">電話番号</span><input type="tel" placeholder="000-1234-5678" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px 'Noto Sans JP';background:#FBF9F3;color:#3E3A33" style-focus="border-color:#7E8B6B;outline:none"></label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">メールアドレス <span style="color:#D67A4C">必須</span></span><input type="email" placeholder="example@mail.com" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px 'Noto Sans JP';background:#FBF9F3;color:#3E3A33" style-focus="border-color:#7E8B6B;outline:none"></label>
+        <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">ご希望の日時</span><input type="text" placeholder="例)平日の夕方、土曜午前など" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px 'Noto Sans JP';background:#FBF9F3;color:#3E3A33" style-focus="border-color:#7E8B6B;outline:none"></label>
+        <label style="display:flex;flex-direction:column;gap:7px"><span style="font:600 12px 'Noto Sans JP';color:#34402F">メッセージ</span><textarea rows="4" placeholder="ご質問やご希望のコースなど、お気軽にどうぞ。" style="border:1px solid rgba(52,64,47,.18);border-radius:11px;padding:13px 14px;font:400 14px/1.7 'Noto Sans JP';background:#FBF9F3;color:#3E3A33;resize:vertical" style-focus="border-color:#7E8B6B;outline:none"></textarea></label>
+        <button type="submit" style="margin-top:4px;display:flex;align-items:center;justify-content:center;gap:9px;background:#D67A4C;color:#fff;border:none;border-radius:13px;padding:17px;font:700 15px 'Noto Sans JP';letter-spacing:.04em;cursor:pointer;box-shadow:0 10px 26px rgba(214,122,76,.35)" style-hover="background:#c96f42">この内容で申し込む<span>→</span></button>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}"><div style="background:#EEF0E6;border-radius:12px;padding:14px 16px;font:500 13px 'Noto Sans JP';color:#34402F;text-align:center">送信ありがとうございます(デモ)。実際の運用ではメールでご連絡します。</div></sc-if>
+      </form>
+
+      <!-- CONTACT CHANNELS -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(52,64,47,.07)">
+          <h3 style="margin:0 0 16px;font:600 16px 'Noto Serif JP';color:#34402F;letter-spacing:.06em">その他の連絡方法</h3>
+          <a style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(52,64,47,.08);text-decoration:none;color:inherit;cursor:pointer" style-hover="opacity:.7"><span style="width:42px;height:42px;border-radius:12px;background:#06C755;color:#fff;display:flex;align-items:center;justify-content:center;font:700 11px 'IBM Plex Mono'">LINE</span><div><div style="font:600 14px 'Noto Sans JP';color:#34402F">LINEで相談</div><div style="font:400 11.5px 'Noto Sans JP';color:#8a857a">@sora-piano(友だち追加)</div></div></a>
+          <a style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(52,64,47,.08);text-decoration:none;color:inherit;cursor:pointer" style-hover="opacity:.7"><span style="width:42px;height:42px;border-radius:12px;background:#7E8B6B;color:#fff;display:flex;align-items:center;justify-content:center;font:700 10px 'IBM Plex Mono'">IG</span><div><div style="font:600 14px 'Noto Sans JP';color:#34402F">Instagram</div><div style="font:400 11.5px 'Noto Sans JP';color:#8a857a">@sora_piano_studio</div></div></a>
+          <a href="tel:00012345678" style="display:flex;align-items:center;gap:14px;padding:14px 0;text-decoration:none;color:inherit;cursor:pointer" style-hover="opacity:.7"><span style="width:42px;height:42px;border-radius:12px;background:#34402F;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px">☎</span><div><div style="font:600 14px 'Noto Sans JP';color:#34402F">000-1234-5678</div><div style="font:400 11.5px 'Noto Sans JP';color:#8a857a">受付 火〜土 10:00–20:00</div></div></a>
+        </div>
+        <div style="background:#EEF0E6;border-radius:18px;padding:24px"><span style="font:500 10px 'IBM Plex Mono';color:#7E8B6B;letter-spacing:.24em">HOURS</span><div style="margin-top:12px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;font:400 13px 'Noto Sans JP';color:#3E3A33"><span>火曜 〜 土曜</span><span style="font-weight:600">10:00 – 20:00</span></div><div style="display:flex;justify-content:space-between;font:400 13px 'Noto Sans JP';color:#8a857a"><span>日曜・月曜</span><span style="font-weight:600">定休日</span></div></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<span data-anchor="pages"></span>
+
+
+
+<!-- ================= TRIAL BANNER ================= -->
+<sc-if value="{{ showBanner }}" hint-placeholder-val="{{ true }}">
+<section style="position:relative;overflow:hidden;background:#34402F">
+  <div style="position:absolute;top:-40px;right:-20px;font:600 200px 'Noto Serif JP';color:rgba(126,139,107,.16);line-height:1;user-select:none">♪</div>
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(46px,6vw,76px) clamp(18px,4vw,40px);position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+    <span style="font:500 10px 'IBM Plex Mono';color:#D67A4C;letter-spacing:.36em">FREE TRIAL LESSON</span>
+    <h2 style="margin:0;font:600 clamp(24px,4vw,40px) 'Noto Serif JP';color:#fff;letter-spacing:.1em;line-height:1.5">体験レッスン、受付中。</h2>
+    <p style="margin:0;max-width:560px;font:300 14px/2 'Noto Sans JP';color:rgba(247,243,234,.86)">「自分にもできるかな?」その気持ちのまま、まずは一度。<br>無理な勧誘は一切ありません。お気軽にお越しください。</p>
+    <a onClick="{{ goContact }}" style="margin-top:8px;display:flex;align-items:center;gap:10px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:999px;padding:17px 34px;font:700 15px 'Noto Sans JP';letter-spacing:.04em;box-shadow:0 12px 30px rgba(214,122,76,.4)" style-hover="background:#c96f42">体験レッスンを申し込む<span style="font-size:16px">→</span></a>
+  </div>
+</section>
+</sc-if>
+
+<!-- ================= FOOTER ================= -->
+<footer style="position:relative;background:#7E8B6B;color:#F7F3EA;overflow:hidden">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 1px 1px,rgba(247,243,234,.13) 1.2px,transparent 1.4px);background-size:22px 22px;opacity:.5"></div>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(44px,5vw,64px) clamp(18px,4vw,40px) 28px;position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center"><img src="https://shino-music.com/_astro/ShinoharaMusicSchool.CpggLnVA.svg" alt="しのはら音楽教室" referrerpolicy="no-referrer" style="height:30px;width:auto;display:block"></div>
+      <div style="font:300 12.5px/2 'Noto Sans JP';color:rgba(247,243,234,.9)">〒811-1362<br>福岡県福岡市南区長住7丁目8-27<br>受付 火〜土 10:00–20:00</div>
+      <div style="display:flex;gap:10px"><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(247,243,234,.5);display:flex;align-items:center;justify-content:center;font:500 10px 'IBM Plex Mono';cursor:pointer">IG</span><span style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(247,243,234,.5);display:flex;align-items:center;justify-content:center;font:500 10px 'IBM Plex Mono';cursor:pointer">LINE</span></div>
+      <a onClick="{{ goContact }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;background:#D67A4C;color:#fff;text-decoration:none;cursor:pointer;border-radius:999px;padding:13px 24px;font:700 13px 'Noto Sans JP';box-shadow:0 8px 20px rgba(214,122,76,.32)" style-hover="background:#c96f42">体験レッスン申込<span>→</span></a>
+    </div>
+    <div style="display:flex;justify-content:flex-end">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 48px">
+        <a onClick="{{ goLessons }}" style="{{ fLink }}" style-hover="opacity:1"><span style="font:500 9px 'IBM Plex Mono';letter-spacing:.2em;opacity:.7">LESSON</span>レッスン案内</a>
+        <a onClick="{{ goGallery }}" style="{{ fLink }}" style-hover="opacity:1"><span style="font:500 9px 'IBM Plex Mono';letter-spacing:.2em;opacity:.7">GALLERY</span>発表会・生徒の声</a>
+        <a onClick="{{ goAccess }}" style="{{ fLink }}" style-hover="opacity:1"><span style="font:500 9px 'IBM Plex Mono';letter-spacing:.2em;opacity:.7">ACCESS</span>アクセス</a>
+        <a onClick="{{ goPrice }}" style="{{ fLink }}" style-hover="opacity:1"><span style="font:500 9px 'IBM Plex Mono';letter-spacing:.2em;opacity:.7">PRICE</span>料金</a>
+        <a onClick="{{ goContact }}" style="{{ fLink }}" style-hover="opacity:1"><span style="font:500 9px 'IBM Plex Mono';letter-spacing:.2em;opacity:.7">CONTACT</span>お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+  <div style="position:relative;border-top:1px solid rgba(247,243,234,.2);padding:18px 20px;text-align:center;font:400 11px 'IBM Plex Mono';letter-spacing:.1em;color:rgba(247,243,234,.75)">© しのはら音楽教室 / shino-music.com</div>
+</footer>
+
+<!-- ================= FLOATING CTA ================= -->
+<button onClick="{{ goContact }}" style="position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:11px;background:#D67A4C;color:#fff;border:none;border-radius:18px;padding:13px 18px 13px 15px;box-shadow:0 12px 30px rgba(214,122,76,.45);cursor:pointer;animation:floatY 4s ease-in-out infinite" style-hover="background:#c96f42">
+  <span style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px">♪</span>
+  <span style="display:flex;flex-direction:column;line-height:1.35;text-align:left"><span style="font:400 10px 'Noto Sans JP';opacity:.92">かんたん・無料</span><span style="font:700 13px 'Noto Sans JP';letter-spacing:.02em">体験レッスンのお申し込み</span></span>
+</button>
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:760}}">
+class Component extends DCLogic {
+  state = { page: 'home', menuOpen: false, isMobile: false, faqOpen: null, submitted: false };
+
+  componentDidMount() {
+    this._resize = () => {
+      const m = window.innerWidth < 1040;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    this._resize();
+    window.addEventListener('resize', this._resize);
+    this._lastPage = this.state.page;
+    this._updateHeroCurve = () => {
+      const wrap = document.getElementById('heroWrap');
+      const path = document.getElementById('heroCurve');
+      if (!wrap || !path) return;
+      const scrollable = wrap.offsetHeight - (window.innerHeight || 700);
+      const scrolled = Math.min(Math.max(-wrap.getBoundingClientRect().top, 0), Math.max(scrollable, 1));
+      let p = scrollable > 0 ? scrolled / scrollable : 0;
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      const e = 1 - Math.pow(1 - p, 2);          // ease-out
+      const x1 = (42 + 104 * e).toFixed(1);       // top-right edge
+      const cx = (58 + 118 * e).toFixed(1);       // control point (bulge)
+      const x2 = (30 + 126 * e).toFixed(1);       // bottom-right edge
+      path.setAttribute('d', 'M0,0 L' + x1 + ',0 Q' + cx + ',50 ' + x2 + ',100 L0,100 Z');
+      // fade the photo-side text as ivory takes over; keep dark heading readable
+      const pt = document.getElementById('heroPhotoText');
+      if (pt) pt.style.opacity = String(Math.max(0, 1 - Math.max(0, (p - 0.3)) / 0.35));
+      const cue = document.getElementById('scrollCue');
+      if (cue) cue.style.opacity = String(Math.max(0, 1 - p / 0.35));
+    };
+    this._onScroll = () => {
+      this.runReveal();                 // reveal: run directly, never gated by rAF
+      this._updateHeroCurve();          // expand the ivory panel on scroll
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = null;
+        const y = window.scrollY || window.pageYOffset || 0;
+        const hdr = document.getElementById('siteHeader');
+        const inner = document.getElementById('siteHeaderInner');
+        if (hdr) {
+          hdr.style.boxShadow = y > 16 ? '0 6px 22px rgba(52,64,47,.10)' : 'none';
+          hdr.style.background = y > 16 ? 'rgba(247,243,234,.97)' : 'rgba(247,243,234,.9)';
+        }
+        if (inner) { const pad = y > 16 ? '6px' : '11px'; inner.style.paddingTop = pad; inner.style.paddingBottom = pad; }
+        const bg = document.getElementById('heroBg');
+        if (bg) bg.style.transform = 'translateY(' + (y * 0.22) + 'px)';
+        this.checkReveal();
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    this._updateHeroCurve();
+    this.setupReveal();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._io) this._io.disconnect();
+  }
+  componentDidUpdate() {
+    if (this._lastPage !== this.state.page) {
+      this._lastPage = this.state.page;
+      try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {}
+    }
+    if (this._onScroll) this._onScroll();
+    this.setupReveal();
+  }
+  // Scroll-position based reveal — robust across re-renders & preview viewports.
+  runReveal() {
+    const vh = window.innerHeight || 800;
+    const trigger = vh * 0.9;
+    const handle = (el, delay) => {
+      if (!el) return;
+      const st = el.getAttribute('data-reveal-state');
+      if (st === 'done') return;
+      if (st !== 'pending') {
+        // first time we see this element: hide it
+        const dist = el.getAttribute('data-reveal-dist') || '26';
+        const dur = el.getAttribute('data-reveal-dur') || '0.7';
+        el.setAttribute('data-reveal-state', 'pending');
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(' + dist + 'px)';
+        el.style.transition = 'opacity ' + dur + 's cubic-bezier(.22,.61,.36,1), transform ' + dur + 's cubic-bezier(.22,.61,.36,1)';
+        el.style.transitionDelay = delay + 's';
+      }
+      // reveal if in view
+      if (el.getBoundingClientRect().top < trigger) {
+        el.setAttribute('data-reveal-state', 'done');
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }
+    };
+    document.querySelectorAll('[data-stagger]').forEach((c) => {
+      Array.prototype.forEach.call(c.children, (ch, idx) => handle(ch, Math.min(idx, 6) * 0.09));
+    });
+    document.querySelectorAll('[data-reveal]').forEach((el) => handle(el, 0));
+  }
+  setupReveal() {
+    this.runReveal();
+    requestAnimationFrame(() => this.runReveal());
+    [120, 350, 700].forEach((t) => setTimeout(() => this.runReveal(), t));
+  }
+  checkReveal() { this.runReveal(); }
+  go(page) {
+    return (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ page: page, menuOpen: false }); };
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    const mob = this.state.isMobile;
+    const base = "padding:9px 13px;border-radius:999px;font:500 13px/1 'Noto Sans JP',sans-serif;letter-spacing:.03em;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s;";
+    const act = "background:#7E8B6B;color:#fff;";
+    const ina = "background:transparent;color:#34402F;";
+    const nav = (k) => base + (p === k ? act : ina);
+    const fLink = "display:flex;flex-direction:column;gap:3px;color:#F7F3EA;text-decoration:none;cursor:pointer;font:500 13px 'Noto Sans JP';letter-spacing:.03em;opacity:.92;transition:opacity .2s;";
+    const mLink = "display:flex;flex-direction:column;gap:4px;padding:15px 0;border-bottom:1px solid rgba(52,64,47,.1);color:#34402F;text-decoration:none;cursor:pointer;font:600 17px 'Noto Sans JP';letter-spacing:.04em;transition:color .2s;";
+    return {
+      page: p,
+      isHome: p === 'home', isAbout: p === 'about', isLessons: p === 'lessons',
+      isPrice: p === 'price', isGallery: p === 'gallery', isAccess: p === 'access', isContact: p === 'contact',
+      isMobile: mob, menuOpen: this.state.menuOpen,
+      showBanner: p !== 'contact',
+      navDisplay: mob ? 'none' : 'flex',
+      trialMl: mob ? 'auto' : '4px',
+      navLessons: nav('lessons'), navAbout: nav('about'), navPrice: nav('price'),
+      navGallery: nav('gallery'), navAccess: nav('access'), navContact: nav('contact'),
+      fLink: fLink, mLink: mLink,
+      goHome: this.go('home'), goAbout: this.go('about'), goLessons: this.go('lessons'),
+      goPrice: this.go('price'), goGallery: this.go('gallery'), goAccess: this.go('access'),
+      goContact: this.go('contact'),
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+      faqIs0: this.state.faqOpen === 0, faqIs1: this.state.faqOpen === 1, faqIs2: this.state.faqOpen === 2,
+      faqRot0: this.state.faqOpen === 0 ? 'transform:rotate(45deg)' : '',
+      faqRot1: this.state.faqOpen === 1 ? 'transform:rotate(45deg)' : '',
+      faqRot2: this.state.faqOpen === 2 ? 'transform:rotate(45deg)' : '',
+      faqToggle0: () => this.setState((s) => ({ faqOpen: s.faqOpen === 0 ? null : 0 })),
+      faqToggle1: () => this.setState((s) => ({ faqOpen: s.faqOpen === 1 ? null : 1 })),
+      faqToggle2: () => this.setState((s) => ({ faqOpen: s.faqOpen === 2 ? null : 2 })),
+      submitted: this.state.submitted,
+      submitForm: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ submitted: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+services:
+  db:
+    # 本番（エックスサーバー新サーバー）と揃えた MariaDB 10.11 LTS
+    image: mariadb:10.11
+    restart: unless-stopped
+    # 本番と同じ文字コード(utf8mb4)に揃える
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WP_PORT}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+    volumes:
+      # コア一式の展開先（初回起動時にイメージから自動展開＝ダウンロード相当）
+      - ./wp:/var/www/html
+      # テーマだけは Git 管理下のディレクトリをマウントして上書き
+      - ./themes/${WP_THEME}:/var/www/html/wp-content/themes/${WP_THEME}
+
+  # wp-cli を都度実行するための one-off コンテナ（通常は起動しっぱなしにしない）
+  wpcli:
+    image: wordpress:cli-php8.3
+    profiles: ["cli"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+    volumes:
+      - ./wp:/var/www/html
+      - ./themes/${WP_THEME}:/var/www/html/wp-content/themes/${WP_THEME}
+
+  # Tailwind ビルド用（通常の起動とは分離。profiles で明示的に起動する）
+  # ホストに Node を入れずに、このコンテナ内で tailwind をビルド/watch する
+  assets:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./themes/${WP_THEME}:/app
+    # 既定動作は watch ビルド（make assets で利用）
+    command: sh -c "npm install && npm run dev"
+    profiles: ["assets"]
+
+volumes:
+  db_data:

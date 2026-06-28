@@ -1,0 +1,16 @@
+/*
+Theme Name: Shino Music School
+Theme URI: https://github.com/ryota1119/shino_music_school_v2
+Author: ryota1119
+Description: Shino Music School 用カスタムテーマ（ローカル開発）。
+Version: 0.1.0
+Requires at least: 6.0
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+Text Domain: shino-music-school
+*/
+
+/*
+ * 実際のスタイルは Tailwind でビルドした assets/css/app.css に集約しています。
+ * この style.css はテーマ認識のためのヘッダー専用です（編集不要）。
+ */
