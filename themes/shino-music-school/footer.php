@@ -46,7 +46,7 @@
 			</a>
 		</div>
 		<!-- ナビリンク -->
-		<div class="flex justify-end">
+		<div class="flex md:justify-end">
 			<div class="grid gap-y-2.5" style="grid-template-columns:1fr 1fr;column-gap:48px">
 				<?php
 				$footer_items = array(
