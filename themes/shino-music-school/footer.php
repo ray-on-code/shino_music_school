@@ -5,8 +5,7 @@
 ?>
 <!-- ===== FOOTER ===== -->
 <footer class="relative overflow-hidden" style="background:#7E8B6B;color:#F7F3EA">
-	<div class="absolute inset-0 opacity-50"
-	     style="background:radial-gradient(circle at 1px 1px,rgba(247,243,234,.13) 1.2px,transparent 1.4px);background-size:22px 22px"></div>
+
 	<div class="relative max-w-[1180px] mx-auto grid gap-10"
 	     style="padding:clamp(44px,5vw,64px) clamp(18px,4vw,40px) 28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
 		<!-- ロゴ・住所 -->

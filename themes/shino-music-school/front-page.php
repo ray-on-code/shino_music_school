@@ -352,7 +352,7 @@ get_header();
 	     style="object-fit:cover;object-position:center"
 	     loading="lazy" decoding="async">
 	<div class="absolute inset-0 pointer-events-none"
-	     style="background:linear-gradient(to right, #34402F 0%, #34402F 42%, rgba(52,64,47,.88) 55%, rgba(52,64,47,.5) 72%, rgba(52,64,47,.25) 100%)"></div>
+	     style="background:linear-gradient(to right, #34402F 0%, #34402F 50%, rgba(52,64,47,.88) 63%, rgba(52,64,47,.45) 80%, rgba(52,64,47,.15) 100%)"></div>
 
 	<div class="relative max-w-[1000px] mx-auto flex flex-col items-center text-center gap-4" style="padding:clamp(46px,6vw,76px) clamp(18px,4vw,40px)">
 		<span class="text-brand-orange" style="font:500 10px var(--font-mono);letter-spacing:.36em">FREE TRIAL LESSON</span>
