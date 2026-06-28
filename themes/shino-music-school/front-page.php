@@ -12,7 +12,7 @@ get_header();
 
 <!-- ===== HERO ===== -->
 <section id="heroWrap" class="relative bg-brand-bg" style="height:calc(165svh - var(--hdr-h,66px))">
-	<div id="heroSection" class="sticky top-0 overflow-hidden bg-brand-bg" style="height:calc(100svh - var(--hdr-h,66px));min-height:494px">
+	<div id="heroSection" class="sticky overflow-hidden bg-brand-bg" style="top:var(--hdr-h,66px);height:calc(100svh - var(--hdr-h,66px));min-height:494px">
 		<!-- 背景（パラックス） -->
 		<div id="heroBg" class="absolute left-0 right-0" style="top:-8%;height:118%;will-change:transform">
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/hero-bg.jpg"
