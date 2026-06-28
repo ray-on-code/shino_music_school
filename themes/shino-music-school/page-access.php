@@ -58,9 +58,10 @@ get_header();
 		<!-- 外観写真 -->
 		<div data-stagger class="grid grid-cols-2 gap-3">
 			<div class="rounded-[16px] overflow-hidden" style="aspect-ratio:4/3">
-				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/access-exterior.jpg"
-				     alt="教室外観" class="w-full h-full" style="object-fit:cover;object-position:center"
-				     loading="lazy" decoding="async">
+				<iframe src="https://www.google.com/maps/embed?pb=!4v1782636337832!6m8!1m7!1sH_wN3CH4DuPYpbLrg1qNZw!2m2!1d33.54498829279165!2d130.3957344031786!3f337.22448148528997!4f8.38349353234004!5f0.7820865974627469"
+				        width="100%" height="100%" style="border:0;display:block;min-height:200px"
+				        allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+				        title="しのはら音楽教室 ストリートビュー"></iframe>
 			</div>
 			<div class="rounded-[16px] overflow-hidden" style="aspect-ratio:4/3">
 				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/access-entrance.jpg"
