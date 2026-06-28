@@ -129,13 +129,13 @@ get_header();
 			foreach ( $news_items as $i => $item ) :
 				$border_b = ( $i === count( $news_items ) - 1 ) ? 'border-b' : '';
 			?>
-			<a href="#" class="flex flex-wrap items-center gap-3.5 no-underline text-inherit transition-colors hover:bg-[#FBF8F0] <?php echo esc_attr( $border_b ); ?>"
-			   style="padding:17px 4px;border-top:1px solid rgba(52,64,47,.1)">
+			<div class="flex flex-wrap items-center gap-3.5 <?php echo esc_attr( $border_b ); ?>"
+			     style="padding:17px 4px;border-top:1px solid rgba(52,64,47,.1)">
 				<span class="text-[#8a857a] w-24" style="font:500 13px var(--font-mono)"><?php echo esc_html( $item['date'] ); ?></span>
 				<span class="text-white text-[11px] font-medium px-2.5 py-1 rounded-md"
 				      style="background:var(--color-brand-green);font-family:var(--font-sans);letter-spacing:.06em"><?php echo esc_html( $item['tag'] ); ?></span>
 				<span class="flex-1 min-w-[200px]" style="font:400 14px/1.7 var(--font-sans)"><?php echo esc_html( $item['text'] ); ?></span>
-			</a>
+			</div>
 			<?php endforeach; ?>
 		</div>
 	</div>

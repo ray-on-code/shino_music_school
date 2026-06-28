@@ -57,7 +57,7 @@
 
 		<!-- Hamburger -->
 		<button id="menuToggle" aria-label="メニュー" aria-expanded="false"
-		        class="flex-shrink-0 w-11 h-11 rounded-full bg-white text-brand-dark flex items-center justify-center text-lg cursor-pointer transition-colors hover:bg-brand-bg"
+		        class="lg:hidden flex-shrink-0 w-11 h-11 rounded-full bg-white text-brand-dark flex items-center justify-center text-lg cursor-pointer transition-colors hover:bg-brand-bg"
 		        style="border:1px solid rgba(52,64,47,.16)">
 			☰
 		</button>
