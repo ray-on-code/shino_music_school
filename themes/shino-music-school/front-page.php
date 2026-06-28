@@ -15,10 +15,11 @@ get_header();
 	<div id="heroSection" class="sticky top-0 overflow-hidden bg-brand-bg" style="height:calc(100svh - var(--hdr-h,66px));min-height:494px">
 		<!-- 背景（パラックス） -->
 		<div id="heroBg" class="absolute left-0 right-0" style="top:-8%;height:118%;will-change:transform">
-			<!-- 画像プレースホルダー -->
-			<div class="absolute inset-0 w-full h-full bg-brand-light flex items-end justify-end p-4">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">教室のある町の風景・空</span>
-			</div>
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/hero-bg.jpg"
+			     alt="しのはら音楽教室 外観"
+			     class="absolute inset-0 w-full h-full"
+			     style="object-fit:cover;object-position:center 25%"
+			     loading="eager" decoding="async">
 			<div class="absolute inset-0 pointer-events-none"
 			     style="background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(126,139,107,.08) 55%,rgba(126,139,107,.2))"></div>
 		</div>
