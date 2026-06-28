@@ -1,90 +1,65 @@
-/**
- * Tailwind CSS 入力ファイル
- *
- * ビルド: `npm run dev`（watch） / `npm run build`（minify）
- * 出力:   ./assets/css/app.css
- *
- * source(...) でテーマルートをコンテンツ検出の基準にし、PHP テンプレート内の
- * ユーティリティクラスを拾えるようにする。
- */
 @import "tailwindcss" source("../..");
 
-/* ===== デザイントークン（ユーティリティとしても利用可: bg-brand-bg 等） ===== */
+/* ===== デザイントークン ===== */
 @theme {
-  --color-brand-bg: #faf9f7;
-  --color-brand-text: #1f2933;
-  --color-brand-accent: #b8860b;
+  --color-brand-bg:     #F7F3EA;
+  --color-brand-text:   #3E3A33;
+  --color-brand-dark:   #34402F;
+  --color-brand-green:  #7E8B6B;
+  --color-brand-light:  #EEF0E6;
+  --color-brand-orange: #D67A4C;
 
-  /* カレンダーの曜日色 */
-  --color-cal-sun: #d64545;
-  --color-cal-sat: #2f6fb0;
+  --font-sans:  'Noto Sans JP', sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
+  --font-mono:  'IBM Plex Mono', monospace;
+}
+
+/* ===== アニメーション ===== */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
+}
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(7px); opacity: .55; }
+}
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* ===== ベース ===== */
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
   body {
-    @apply m-0 bg-brand-bg text-brand-text;
-    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-    line-height: 1.7;
+    background: var(--color-brand-bg);
+    color: var(--color-brand-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+  ::selection { background: var(--color-brand-green); color: #fff; }
 }
 
-/* ===== テーマ共通コンポーネント ===== */
-@layer components {
-  .site-header {
-    @apply px-6 py-8;
-    border-bottom: 2px solid var(--color-brand-accent);
-  }
-
-  .site-title {
-    @apply m-0 text-[1.6rem];
-  }
-
-  .site-main {
-    @apply mx-auto max-w-[720px] px-6 py-8;
-  }
-
-  .entry-title {
-    @apply text-[1.3rem];
-  }
-
-  .site-footer {
-    @apply px-6 py-8 text-center text-[0.85rem] text-gray-500;
-  }
-}
-
-/**
- * ===== WP Simple Booking Calendar の見た目調整 =====
- *
- * 注意: ここはあえて @layer の外（unlayered）に置く。
- * プラグイン本体の CSS も unlayered であり、カスケードレイヤーの規則上
- * unlayered 同士の勝負になるため、@layer 内に入れると逆に負けてしまう。
- * プラグインの !important リセットに勝つため、必要箇所では !important を使う。
- */
-
-/* カレンダー全体（カード） */
+/* ===== WP Simple Booking Calendar（既存のまま維持） ===== */
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar {
   @apply overflow-hidden rounded-md bg-white;
   border: 1px solid #e2e2e2;
 }
-
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-wrapper {
   padding: 0 !important;
 }
-
-/* ヘッダー（月送り） */
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-header {
   background: #fff;
   padding: 14px 10px;
   border-bottom: 1px solid #ededed;
 }
-
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-header .wpsbc-calendar-header-navigation {
   padding: 0 40px;
   min-height: 34px;
   line-height: 34px;
 }
-
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-header .wpsbc-select-container select {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
@@ -96,91 +71,37 @@
   background: #fff;
   text-align: center;
 }
-
-/* 月送りボタン */
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-header .wpsbc-calendar-header-navigation .wpsbc-prev,
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar .wpsbc-calendar-header .wpsbc-calendar-header-navigation .wpsbc-next {
-  width: 34px;
-  height: 34px;
-  line-height: 34px;
-  margin-top: -17px;
-  border-radius: 50%;
-  background: #6f7d5a;
+  width: 34px; height: 34px; line-height: 34px; margin-top: -17px;
+  border-radius: 50%; background: #6f7d5a;
 }
-
-/* 曜日見出し */
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table thead tr th {
-  padding: 12px 0 !important;
-  font-size: 13px;
-  font-weight: 600;
-  color: #8a8a8a;
-  background: #fff;
-  border: 1px solid #ededed !important;
-  box-sizing: border-box !important;
+  padding: 12px 0 !important; font-size: 13px; font-weight: 600;
+  color: #8a8a8a; background: #fff;
+  border: 1px solid #ededed !important; box-sizing: border-box !important;
 }
-
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table thead tr th.wpsbc-sun {
-  color: var(--color-cal-sun);
-}
-
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table thead tr th.wpsbc-sat {
-  color: var(--color-cal-sat);
-}
-
-/* 日付セル（グリッド） */
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table thead tr th.wpsbc-sun { color: #d64545; }
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table thead tr th.wpsbc-sat { color: #2f6fb0; }
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td {
-  border: 1px solid #ededed !important;
-  padding: 0 !important;
+  border: 1px solid #ededed !important; padding: 0 !important;
 }
-
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date-inner {
-  height: 54px;
-}
-
-/* 日付の数字 */
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date-inner { height: 54px; }
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date-inner .wpsbc-date-number {
   @apply flex items-center justify-center;
-  font-size: 15px;
-  font-weight: 500;
-  color: #2b2b2b;
+  font-size: 15px; font-weight: 500; color: #2b2b2b;
 }
-
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td.wpsbc-sun .wpsbc-date-number {
-  color: var(--color-cal-sun);
-}
-
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td.wpsbc-sat .wpsbc-date-number {
-  color: var(--color-cal-sat);
-}
-
-/* 空セル（前後月の余白）は円を出さない */
-.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date.wpsbc-gap {
-  background: #fafafa;
-}
-
-/* 凡例アイコン → リング状の円に変換（凡例色がそのまま輪郭色になる） */
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td.wpsbc-sun .wpsbc-date-number { color: #d64545; }
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td.wpsbc-sat .wpsbc-date-number { color: #2f6fb0; }
+.wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date.wpsbc-gap { background: #fafafa; }
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date .wpsbc-legend-item-icon {
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  overflow: hidden;
+  top: 50%; left: 50%; width: 40px; height: 40px;
+  transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden;
 }
-
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date .wpsbc-legend-item-icon .wpsbc-legend-item-icon-color {
   border-radius: 50%;
 }
-
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar table tbody tr td .wpsbc-date .wpsbc-legend-item-icon::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 1;
+  content: ""; position: absolute; top: 2px; right: 2px; bottom: 2px; left: 2px;
+  background: #fff; border-radius: 50%; z-index: 1;
 }
