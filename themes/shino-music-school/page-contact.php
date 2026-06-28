@@ -53,11 +53,11 @@ $cf7_shortcode = '[contact-form-7 id="FORM_ID_HERE" title="体験レッスン申
 						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">@sora_piano_studio</div>
 					</div>
 				</div>
-				<a href="tel:00012345678" class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70">
+				<a href="<?php echo esc_url( 'tel:00012345678' ); ?>" class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70">
 					<span class="w-11 h-11 rounded-xl bg-brand-dark text-white flex items-center justify-center text-lg">☎</span>
 					<div>
-						<div class="text-brand-dark" style="font:600 14px var(--font-sans)">000-1234-5678</div>
-						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">受付 火〜土 10:00–20:00</div>
+						<div class="text-brand-dark" style="font:600 14px var(--font-sans)"><?php echo esc_html( '000-1234-5678' ); ?></div>
+						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)"><?php echo esc_html( '受付 火〜土 10:00–20:00' ); ?></div>
 					</div>
 				</a>
 			</div>
@@ -66,12 +66,12 @@ $cf7_shortcode = '[contact-form-7 id="FORM_ID_HERE" title="体験レッスン申
 				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.24em">HOURS</span>
 				<div class="mt-3 flex flex-col gap-2">
 					<div class="flex justify-between text-brand-text" style="font:400 13px var(--font-sans)">
-						<span>火曜 〜 土曜</span>
-						<span class="font-semibold">10:00 – 20:00</span>
+						<span><?php echo esc_html( '火曜 〜 土曜' ); ?></span>
+						<span class="font-semibold"><?php echo esc_html( '10:00 – 20:00' ); ?></span>
 					</div>
 					<div class="flex justify-between text-[#8a857a]" style="font:400 13px var(--font-sans)">
-						<span>日曜・月曜</span>
-						<span class="font-semibold">定休日</span>
+						<span><?php echo esc_html( '日曜・月曜' ); ?></span>
+						<span class="font-semibold"><?php echo esc_html( '定休日' ); ?></span>
 					</div>
 				</div>
 			</div>
