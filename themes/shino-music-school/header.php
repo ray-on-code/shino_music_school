@@ -17,50 +17,53 @@
 <header id="siteHeader" class="sticky top-0 z-50 transition-all duration-300"
         style="background:rgba(247,243,234,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(52,64,47,.08)">
 	<div id="siteHeaderInner"
-	     class="max-w-[1200px] mx-auto flex items-center gap-4 transition-all duration-300"
+	     class="max-w-[1200px] mx-auto flex items-center justify-between transition-all duration-300"
 	     style="padding:11px 18px">
 		<!-- Logo -->
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"
-		   class="flex items-center gap-3 no-underline flex-shrink-0">
+		   class="flex items-center no-underline flex-shrink-0">
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg"
 			     alt="しのはら音楽教室"
-			     style="height:22px;width:auto;display:block">
+			     style="height:32px;width:auto;display:block">
 		</a>
 
-		<!-- Desktop Nav -->
-		<nav class="hidden lg:flex gap-0.5 ml-auto">
-			<?php
-			$nav_items = array(
-				array( 'url' => home_url( '/lessons/' ), 'label' => 'レッスン案内', 'slug' => 'lessons' ),
-				array( 'url' => home_url( '/price/' ),   'label' => '料金',         'slug' => 'price' ),
-				array( 'url' => home_url( '/gallery/' ), 'label' => '発表会・生徒の声', 'slug' => 'gallery' ),
-				array( 'url' => home_url( '/access/' ),  'label' => 'アクセス',     'slug' => 'access' ),
-				array( 'url' => home_url( '/contact/' ), 'label' => 'お問い合わせ', 'slug' => 'contact' ),
-			);
-			foreach ( $nav_items as $item ) :
-				$active_class = is_page( $item['slug'] ) ? 'text-brand-green' : 'text-brand-dark';
-			?>
-			<a href="<?php echo esc_url( $item['url'] ); ?>"
-			   class="px-4 py-2 rounded-full text-[13px] font-medium no-underline transition-colors hover:bg-brand-green/10 <?php echo esc_attr( $active_class ); ?>"
-			   style="font-family:var(--font-sans);letter-spacing:.03em">
-				<?php echo esc_html( $item['label'] ); ?>
+		<!-- Right: Nav + CTA + Hamburger -->
+		<div class="flex items-center gap-4">
+			<!-- Desktop Nav -->
+			<nav class="hidden lg:flex gap-0.5">
+				<?php
+				$nav_items = array(
+					array( 'url' => home_url( '/lessons/' ), 'label' => 'レッスン案内', 'slug' => 'lessons' ),
+					array( 'url' => home_url( '/price/' ),   'label' => '料金',         'slug' => 'price' ),
+					array( 'url' => home_url( '/gallery/' ), 'label' => '発表会・生徒の声', 'slug' => 'gallery' ),
+					array( 'url' => home_url( '/access/' ),  'label' => 'アクセス',     'slug' => 'access' ),
+					array( 'url' => home_url( '/contact/' ), 'label' => 'お問い合わせ', 'slug' => 'contact' ),
+				);
+				foreach ( $nav_items as $item ) :
+					$active_class = is_page( $item['slug'] ) ? 'text-brand-green' : 'text-brand-dark';
+				?>
+				<a href="<?php echo esc_url( $item['url'] ); ?>"
+				   class="px-4 py-2 rounded-full text-[13px] font-medium no-underline transition-colors hover:bg-brand-green/10 <?php echo esc_attr( $active_class ); ?>"
+				   style="font-family:var(--font-sans);letter-spacing:.03em">
+					<?php echo esc_html( $item['label'] ); ?>
+				</a>
+				<?php endforeach; ?>
+			</nav>
+
+			<!-- Trial CTA -->
+			<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
+			   class="hidden lg:flex items-center gap-1.5 bg-brand-orange text-white no-underline rounded-full text-[12.5px] font-bold whitespace-nowrap transition-colors hover:bg-[#c96f42]"
+			   style="padding:10px 16px;box-shadow:0 6px 16px rgba(214,122,76,.32);letter-spacing:.03em">
+				体験レッスン申込<span style="font-size:13px">→</span>
 			</a>
-			<?php endforeach; ?>
-		</nav>
 
-		<!-- Trial CTA -->
-		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
-		   class="flex items-center gap-1.5 bg-brand-orange text-white no-underline rounded-full text-[12.5px] font-bold whitespace-nowrap transition-colors hover:bg-[#c96f42]"
-		   style="margin-left:auto;padding:10px 16px;box-shadow:0 6px 16px rgba(214,122,76,.32);letter-spacing:.03em">
-			体験レッスン申込<span style="font-size:13px">→</span>
-		</a>
-
-		<!-- Hamburger -->
-		<button id="menuToggle" aria-label="メニュー" aria-expanded="false"
-		        class="lg:hidden flex-shrink-0 w-11 h-11 rounded-full bg-white text-brand-dark flex items-center justify-center text-lg cursor-pointer transition-colors hover:bg-brand-bg"
-		        style="border:1px solid rgba(52,64,47,.16)">
-			☰
-		</button>
+			<!-- Hamburger -->
+			<button id="menuToggle" aria-label="メニュー" aria-expanded="false"
+			        class="lg:hidden flex-shrink-0 w-11 h-11 rounded-full bg-white text-brand-dark flex items-center justify-center text-lg cursor-pointer transition-colors hover:bg-brand-bg"
+			        style="border:1px solid rgba(52,64,47,.16)">
+				☰
+			</button>
+		</div>
 	</div>
 </header>
 
