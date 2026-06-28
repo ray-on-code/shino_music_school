@@ -22,9 +22,9 @@
 		<!-- Logo -->
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"
 		   class="flex items-center gap-3 no-underline flex-shrink-0">
-			<img src="https://shino-music.com/_astro/ShinoharaMusicSchool.CpggLnVA.svg"
-			     alt="しのはら音楽教室" referrerpolicy="no-referrer"
-			     style="height:44px;width:auto;display:block">
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg"
+			     alt="しのはら音楽教室"
+			     style="height:22px;width:auto;display:block">
 		</a>
 
 		<!-- Desktop Nav -->
