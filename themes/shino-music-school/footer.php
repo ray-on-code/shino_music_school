@@ -12,6 +12,7 @@
 		<div class="flex flex-col gap-4">
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg"
 			     alt="しのはら音楽教室"
+			     class="self-start"
 			     style="height:30px;width:auto;display:block">
 			<div style="font:300 12.5px/2 var(--font-sans);color:rgba(247,243,234,.9)">
 				〒811-1362<br>
