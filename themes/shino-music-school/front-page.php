@@ -354,7 +354,7 @@ get_header();
 	     loading="lazy" decoding="async">
 	<div class="absolute inset-0 pointer-events-none"
 	     style="background:linear-gradient(to right, #34402F 0%, #34402F 42%, rgba(52,64,47,.88) 55%, rgba(52,64,47,.5) 72%, rgba(52,64,47,.25) 100%)"></div>
-	<div class="absolute text-white/10 pointer-events-none select-none" style="top:-40px;right:-20px;font:600 200px var(--font-serif);line-height:1">♪</div>
+
 	<div class="relative max-w-[1000px] mx-auto flex flex-col items-center text-center gap-4" style="padding:clamp(46px,6vw,76px) clamp(18px,4vw,40px)">
 		<span class="text-brand-orange" style="font:500 10px var(--font-mono);letter-spacing:.36em">FREE TRIAL LESSON</span>
 		<h2 class="m-0 text-white" style="font:600 clamp(24px,4vw,40px) var(--font-serif);letter-spacing:.1em;line-height:1.5">体験レッスン、受付中。</h2>
