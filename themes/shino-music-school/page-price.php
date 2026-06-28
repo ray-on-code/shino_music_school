@@ -46,10 +46,10 @@ get_header();
 				<table class="w-full border-collapse" style="min-width:520px">
 					<thead>
 						<tr class="text-white" style="background:var(--color-brand-green)">
-							<th class="text-left" style="padding:16px 22px;font:600 13px var(--font-sans);letter-spacing:.04em">コース</th>
-							<th class="text-center" style="padding:16px 14px;font:600 13px var(--font-sans)">回数 / 月</th>
-							<th class="text-center" style="padding:16px 14px;font:600 13px var(--font-sans)">1回</th>
-							<th class="text-right" style="padding:16px 22px;font:600 13px var(--font-sans)">月謝(税込)</th>
+							<th scope="col" class="text-left" style="padding:16px 22px;font:600 13px var(--font-sans);letter-spacing:.04em">コース</th>
+							<th scope="col" class="text-center" style="padding:16px 14px;font:600 13px var(--font-sans)">回数 / 月</th>
+							<th scope="col" class="text-center" style="padding:16px 14px;font:600 13px var(--font-sans)">1回</th>
+							<th scope="col" class="text-right" style="padding:16px 22px;font:600 13px var(--font-sans)">月謝(税込)</th>
 						</tr>
 					</thead>
 					<tbody>
