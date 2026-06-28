@@ -26,7 +26,8 @@
     var wrap = document.getElementById('heroWrap');
     var path = document.getElementById('heroCurve');
     if (!wrap || !path) return;
-    var scrollable = wrap.offsetHeight - (window.innerHeight || 700);
+    var sec = document.getElementById('heroSection');
+    var scrollable = wrap.offsetHeight - ((sec && sec.offsetHeight) || window.innerHeight || 700);
     var scrolled = Math.min(Math.max(-wrap.getBoundingClientRect().top, 0), Math.max(scrollable, 1));
     var p = scrollable > 0 ? scrolled / scrollable : 0;
     p = Math.max(0, Math.min(1, p));

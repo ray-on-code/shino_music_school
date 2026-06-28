@@ -11,8 +11,8 @@ get_header();
 <main>
 
 <!-- ===== HERO ===== -->
-<section id="heroWrap" class="relative bg-brand-bg" style="height:165vh">
-	<div id="heroSection" class="sticky top-0 overflow-hidden bg-brand-bg" style="height:100vh;min-height:560px">
+<section id="heroWrap" class="relative bg-brand-bg" style="height:165vh;height:165svh">
+	<div id="heroSection" class="sticky top-0 overflow-hidden bg-brand-bg" style="height:100vh;height:100svh;min-height:560px">
 		<!-- 背景（パラックス） -->
 		<div id="heroBg" class="absolute left-0 right-0" style="top:-8%;height:118%;will-change:transform">
 			<!-- 画像プレースホルダー -->
