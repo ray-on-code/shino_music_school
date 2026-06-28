@@ -54,6 +54,21 @@
   ::selection { background: var(--color-brand-green); color: #fff; }
 }
 
+/* ===== HERO スマホ最適化 ===== */
+@media (max-width: 767px) {
+  #heroWrap {
+    height: calc(100svh - var(--hdr-h, 66px)) !important;
+  }
+  #heroSection {
+    position: relative !important;
+    top: 0 !important;
+  }
+  #heroBg {
+    top: 0 !important;
+    height: 100% !important;
+  }
+}
+
 /* ===== WP Simple Booking Calendar（既存のまま維持） ===== */
 .wpsbc-container .wpsbc-calendars .wpsbc-calendar {
   @apply overflow-hidden rounded-md bg-white;
