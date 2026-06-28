@@ -16,8 +16,16 @@
       inner.style.paddingBottom = pad;
     }
     var heroBg = document.getElementById('heroBg');
-    if (heroBg) heroBg.style.transform = 'translateY(' + (y * 0.22) + 'px)';
-    updateHeroCurve();
+    if (heroBg) {
+      if (window.innerWidth > 767) {
+        heroBg.style.transform = 'translateY(' + (y * 0.22) + 'px)';
+      } else {
+        heroBg.style.transform = '';
+      }
+    }
+    if (window.innerWidth > 767) {
+      updateHeroCurve();
+    }
     runReveal();
   }
 
