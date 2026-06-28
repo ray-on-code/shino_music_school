@@ -13,6 +13,7 @@ function sms_theme_setup(): void {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption' ) );
+	add_theme_support( 'wpcf7-nojs' );
 
 	register_nav_menus(
 		array(
@@ -38,6 +39,14 @@ function sms_enqueue_assets(): void {
 	wp_enqueue_script(
 		'shino-music-school-wpsbc',
 		get_theme_file_uri( 'assets/js/wpsbc-custom.js' ),
+		array(),
+		$theme_version,
+		true
+	);
+
+	wp_enqueue_script(
+		'shino-music-school-main',
+		get_theme_file_uri( 'assets/js/main.js' ),
 		array(),
 		$theme_version,
 		true
