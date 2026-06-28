@@ -15,7 +15,7 @@ get_header();
 	<div id="heroSection" class="sticky overflow-hidden bg-brand-bg" style="top:var(--hdr-h,66px);height:calc(100svh - var(--hdr-h,66px));min-height:494px">
 		<!-- 背景（パラックス） -->
 		<div id="heroBg" class="absolute left-0 right-0" style="top:-8%;height:118%;will-change:transform">
-			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/hero-bg.jpg"
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/hero-bg.png"
 			     alt="しのはら音楽教室 外観"
 			     class="absolute inset-0 w-full h-full"
 			     style="object-fit:cover;object-position:center 25%"
@@ -81,9 +81,11 @@ get_header();
 
 <!-- ===== 地域・想い ===== -->
 <section id="chiikiSection" class="relative overflow-hidden" style="background:#7E8B6B;color:#F7F3EA">
-	<div class="absolute inset-0 bg-brand-light flex items-end justify-end p-4">
-		<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">教室周辺の町並み・外観</span>
-	</div>
+	<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/chiiki-bg.jpg"
+	     alt=""
+	     class="absolute inset-0 w-full h-full"
+	     style="object-fit:cover;object-position:center 40%"
+	     loading="lazy" decoding="async">
 	<div class="absolute inset-0 pointer-events-none"
 	     style="background:linear-gradient(180deg,rgba(126,139,107,.55),rgba(52,64,47,.5))"></div>
 	<div class="relative max-w-[1180px] mx-auto flex justify-between items-center flex-wrap-reverse"
