@@ -60,8 +60,12 @@ install: ## wp-cli で WordPress を初期セットアップ
 activate-theme: ## .env の WP_THEME を有効化
 	$(COMPOSE) run --rm wpcli wp theme activate "$(WP_THEME)"
 
+.PHONY: install-plugins
+install-plugins: ## 必要プラグインをインストール・有効化
+	$(COMPOSE) run --rm wpcli wp plugin install advanced-custom-fields --activate
+
 .PHONY: setup
-setup: up install activate-theme ## 起動〜インストール〜テーマ有効化を一括実行
+setup: up install activate-theme install-plugins ## 起動〜インストール〜テーマ有効化〜プラグインを一括実行
 	@echo "Done. -> $(WP_URL)"
 
 .PHONY: wp
