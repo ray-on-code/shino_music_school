@@ -137,7 +137,9 @@
     setHeaderHeight();
     initMenu();
     onScroll();
-    updateHeroCurve();
+    if (window.innerWidth > 767) {
+      updateHeroCurve();
+    }
     runReveal();
   });
 })();
