@@ -17,7 +17,7 @@ get_header();
 		<div id="heroBg" class="absolute left-0 right-0" style="top:-8%;height:118%;will-change:transform">
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/hero-bg.jpg"
 			     alt="しのはら音楽教室 外観"
-			     class="absolute inset-0 w-full h-full"
+			     class="absolute right-0 bottom-0 w-full h-full"
 			     style="object-fit:cover;object-position:center 25%"
 			     loading="eager" decoding="async">
 			<div class="absolute inset-0 pointer-events-none"
@@ -56,7 +56,7 @@ get_header();
 		<div id="heroPhotoText" class="absolute flex flex-col items-end text-right gap-4 z-10"
 		     style="right:clamp(18px,5vw,72px);bottom:clamp(64px,11vh,92px);max-width:min(400px,66vw);will-change:opacity">
 			<p class="m-0 text-white"
-			   style="font:400 14px/2 var(--font-sans);letter-spacing:.06em;text-shadow:0 1px 14px rgba(52,64,47,.55)">
+			   style="font:400 14px/2 var(--font-sans);letter-spacing:.06em;text-shadow:0 1px 3px rgba(38,36,32,.78),0 3px 18px rgba(48,44,38,.62),0 0 40px rgba(38,36,32,.48)">
 				子どもから大人まで、初心者も大歓迎。<br>
 				一人ひとりのペースに寄り添う、まちのピアノ教室です。
 			</p>
@@ -70,7 +70,8 @@ get_header();
 		<!-- スクロールキュー -->
 		<div id="scrollCue" class="absolute flex flex-col items-center gap-1.5 pointer-events-none z-10"
 		     style="bottom:22px;left:50%;transform:translateX(-50%);will-change:opacity">
-			<span class="text-brand-green" style="font:500 9px var(--font-mono);letter-spacing:.34em">SCROLL</span>
+			<span class="text-white"
+			      style="font:500 9px var(--font-mono);letter-spacing:.34em;text-shadow:0 1px 3px rgba(38,36,32,.78),0 3px 18px rgba(48,44,38,.62),0 0 40px rgba(38,36,32,.48)">SCROLL</span>
 			<span class="flex items-center justify-center w-7 h-7 rounded-full text-white"
 			      style="background:rgba(214,122,76,.95);box-shadow:0 6px 16px rgba(214,122,76,.45);animation:cueBounce 1.8s ease-in-out infinite">
 				<span style="font-size:13px;line-height:1">↓</span>

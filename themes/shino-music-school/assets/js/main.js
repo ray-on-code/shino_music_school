@@ -1,19 +1,34 @@
 (function () {
   'use strict';
 
+  /* ── ヘッダー縮小タイミング（トップ: chiikiSection 到達後） ── */
+  function isHeaderCompact() {
+    var chiiki = document.getElementById('chiikiSection');
+    if (chiiki) {
+      var hdrH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr-h')) || 66;
+      return chiiki.getBoundingClientRect().top <= hdrH;
+    }
+    var y = window.scrollY || window.pageYOffset || 0;
+    return y > 16;
+  }
+
   /* ── ヘッダー縮小 + パラックス ── */
   function onScroll() {
     var y = window.scrollY || window.pageYOffset || 0;
+    var compact = isHeaderCompact();
     var hdr = document.getElementById('siteHeader');
     var inner = document.getElementById('siteHeaderInner');
     if (hdr) {
-      hdr.style.boxShadow = y > 16 ? '0 6px 22px rgba(52,64,47,.10)' : 'none';
-      hdr.style.background = y > 16 ? 'rgba(247,243,234,.97)' : 'rgba(247,243,234,.9)';
+      hdr.style.boxShadow = compact ? '0 6px 22px rgba(52,64,47,.10)' : 'none';
+      hdr.style.background = compact ? 'rgba(247,243,234,.97)' : 'rgba(247,243,234,.9)';
     }
     if (inner) {
-      var pad = y > 16 ? '6px' : '11px';
-      inner.style.paddingTop = pad;
-      inner.style.paddingBottom = pad;
+      var pad = compact ? '6px' : '11px';
+      if (inner.style.paddingTop !== pad) {
+        inner.style.paddingTop = pad;
+        inner.style.paddingBottom = pad;
+        setHeaderHeight();
+      }
     }
     var heroBg = document.getElementById('heroBg');
     if (heroBg) {
