@@ -212,7 +212,7 @@ get_header();
 
 <!-- ===== レッスン/発表会 ハーフスプリット ===== -->
 <section class="bg-white">
-	<div class="max-w-[1180px] mx-auto flex flex-col" style="padding:clamp(36px,5vw,60px) clamp(18px,4vw,40px);gap:clamp(18px,2.4vw,30px)">
+	<div class="max-w-[1180px] mx-auto grid" style="padding:clamp(36px,5vw,60px) clamp(18px,4vw,40px);gap:clamp(18px,2.4vw,30px);grid-template-rows:1fr 1fr">
 		<!-- レッスン -->
 		<div data-reveal class="grid rounded-[22px] overflow-hidden" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));box-shadow:0 14px 36px rgba(52,64,47,.08)">
 			<div class="min-h-[260px] h-full w-full overflow-hidden">
