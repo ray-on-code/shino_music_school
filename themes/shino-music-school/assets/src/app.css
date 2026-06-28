@@ -28,6 +28,13 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* ===== モバイル H2 統一 ===== */
+@media (max-width: 1023px) {
+  main h2:not([style*="writing-mode"]) {
+    font-size: 20px !important;
+  }
+}
+
 /* ===== ヒーロー ivory パネル ===== */
 #heroCurve {
   transition: d 60ms linear;

@@ -129,12 +129,14 @@ get_header();
 			);
 			foreach ( $news_items as $item ) :
 			?>
-			<div class="flex flex-wrap items-center gap-3.5"
+			<div class="flex flex-col gap-1.5 md:flex-row md:flex-wrap md:items-center md:gap-3.5"
 			     style="padding:17px 4px;border-top:1px solid rgba(52,64,47,.1)">
-				<span class="text-[#8a857a] w-24" style="font:500 13px var(--font-mono)"><?php echo esc_html( $item['date'] ); ?></span>
-				<span class="text-white text-[11px] font-medium px-2.5 py-1 rounded-md"
-				      style="background:var(--color-brand-green);font-family:var(--font-sans);letter-spacing:.06em"><?php echo esc_html( $item['tag'] ); ?></span>
-				<span class="flex-1 min-w-[200px]" style="font:400 14px/1.7 var(--font-sans)"><?php echo esc_html( $item['text'] ); ?></span>
+				<div class="flex items-center gap-2">
+					<span class="text-[#8a857a]" style="font:500 13px var(--font-mono)"><?php echo esc_html( $item['date'] ); ?></span>
+					<span class="text-white text-[11px] font-medium px-2.5 py-1 rounded-md"
+					      style="background:var(--color-brand-green);font-family:var(--font-sans);letter-spacing:.06em"><?php echo esc_html( $item['tag'] ); ?></span>
+				</div>
+				<span class="md:flex-1" style="font:400 14px/1.7 var(--font-sans)"><?php echo esc_html( $item['text'] ); ?></span>
 			</div>
 			<?php endforeach; ?>
 		</div>
@@ -290,7 +292,7 @@ get_header();
 				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">VOICE</span>
 				<h2 class="m-0 mt-2 text-brand-dark" style="font:600 clamp(22px,3vw,30px) var(--font-serif);letter-spacing:.08em">生徒さん・保護者の声</h2>
 			</div>
-			<a href="<?php echo esc_url( home_url( '/gallery/' ) ); ?>"
+			<a href="<?php echo esc_url( home_url( '/gallery/#voice' ) ); ?>"
 			   class="flex items-center gap-2 text-brand-dark no-underline font-bold text-[13px] transition-colors hover:text-brand-green">
 				もっと見る<span class="text-brand-orange">→</span>
 			</a>
@@ -332,7 +334,7 @@ get_header();
 				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">ACCESS</span>
 				<h2 class="m-0 text-brand-dark" style="font:600 clamp(21px,2.8vw,28px) var(--font-serif);letter-spacing:.08em">アクセス</h2>
 				<p class="m-0 text-[#5d584f]" style="font:400 13.5px/2 var(--font-sans)">
-					福岡市南区長住、閑静な住宅街の一角。<br>白い建物が目印です。駐車スペースもございます。
+					福岡市南区長住、閑静な住宅街の一角。<br>駐車スペースもございます。
 				</p>
 				<a href="<?php echo esc_url( home_url( '/access/' ) ); ?>"
 				   class="self-start flex items-center gap-2 text-brand-dark no-underline rounded-full mt-1 text-[12.5px] font-bold transition-colors hover:border-brand-green hover:text-brand-green"
@@ -348,11 +350,11 @@ get_header();
 <section class="relative overflow-hidden" style="background:#34402F">
 	<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/cta-bg.jpg"
 	     alt=""
-	     class="absolute inset-0 w-full h-full"
-	     style="object-fit:cover;object-position:center"
+	     class="absolute"
+	     style="top:0;right:0;bottom:0;left:35%;width:65%;height:100%;object-fit:cover;object-position:center"
 	     loading="lazy" decoding="async">
 	<div class="absolute inset-0 pointer-events-none"
-	     style="background:linear-gradient(to right, #34402F 0%, #34402F 50%, rgba(52,64,47,.88) 63%, rgba(52,64,47,.45) 80%, rgba(52,64,47,.15) 100%)"></div>
+	     style="background:linear-gradient(to right, #34402F 0%, #34402F 35%, rgba(52,64,47,.88) 48%, rgba(52,64,47,.45) 65%, rgba(52,64,47,.15) 85%)"></div>
 
 	<div class="relative max-w-[1000px] mx-auto flex flex-col items-center text-center gap-4" style="padding:clamp(46px,6vw,76px) clamp(18px,4vw,40px)">
 		<span class="text-brand-orange" style="font:500 10px var(--font-mono);letter-spacing:.36em">FREE TRIAL LESSON</span>

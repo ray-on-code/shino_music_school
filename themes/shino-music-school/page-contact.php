@@ -39,41 +39,45 @@ $cf7_shortcode = '[contact-form-7 id="FORM_ID_HERE" title="体験レッスン申
 		<div class="flex flex-col gap-3.5">
 			<div class="bg-white rounded-[18px] p-6" style="box-shadow:0 10px 28px rgba(52,64,47,.07)">
 				<h3 class="m-0 mb-4 text-brand-dark" style="font:600 16px var(--font-serif);letter-spacing:.06em">その他の連絡方法</h3>
-				<div class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70" style="border-bottom:1px solid rgba(52,64,47,.08)">
-					<span class="w-11 h-11 rounded-xl bg-[#06C755] text-white flex items-center justify-center" style="font:700 11px var(--font-mono)">LINE</span>
+				<a href="<?php echo esc_url( 'https://line.me/R/ti/p/@778jwbbj' ); ?>"
+				   target="_blank" rel="noopener noreferrer"
+				   class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70"
+				   style="border-bottom:1px solid rgba(52,64,47,.08)">
+					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/line.svg"
+					     alt=""
+					     width="44" height="44"
+					     class="flex-shrink-0 rounded-xl"
+					     style="display:block;width:44px;height:44px">
 					<div>
 						<div class="text-brand-dark" style="font:600 14px var(--font-sans)">LINEで相談</div>
-						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">@sora-piano(友だち追加)</div>
-					</div>
-				</div>
-				<div class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70" style="border-bottom:1px solid rgba(52,64,47,.08)">
-					<span class="w-11 h-11 rounded-xl bg-brand-green text-white flex items-center justify-center" style="font:700 10px var(--font-mono)">IG</span>
-					<div>
-						<div class="text-brand-dark" style="font:600 14px var(--font-sans)">Instagram</div>
-						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">@sora_piano_studio</div>
-					</div>
-				</div>
-				<a href="<?php echo esc_url( 'tel:00012345678' ); ?>" class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70">
-					<span class="w-11 h-11 rounded-xl bg-brand-dark text-white flex items-center justify-center text-lg">☎</span>
-					<div>
-						<div class="text-brand-dark" style="font:600 14px var(--font-sans)"><?php echo esc_html( '000-1234-5678' ); ?></div>
-						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)"><?php echo esc_html( '受付 火〜土 10:00–20:00' ); ?></div>
+						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">@778jwbbj(友だち追加)</div>
 					</div>
 				</a>
-			</div>
-			<!-- 営業時間 -->
-			<div class="bg-brand-light rounded-[18px] p-6">
-				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.24em">HOURS</span>
-				<div class="mt-3 flex flex-col gap-2">
-					<div class="flex justify-between text-brand-text" style="font:400 13px var(--font-sans)">
-						<span><?php echo esc_html( '火曜 〜 土曜' ); ?></span>
-						<span class="font-semibold"><?php echo esc_html( '10:00 – 20:00' ); ?></span>
+				<a href="<?php echo esc_url( 'https://www.instagram.com/shino_m.studio/' ); ?>"
+				   target="_blank" rel="noopener noreferrer"
+				   class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70"
+				   style="border-bottom:1px solid rgba(52,64,47,.08)">
+					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/instagram.svg"
+					     alt=""
+					     width="44" height="44"
+					     class="flex-shrink-0 rounded-xl"
+					     style="display:block;width:44px;height:44px">
+					<div>
+						<div class="text-brand-dark" style="font:600 14px var(--font-sans)">Instagram</div>
+						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">@shino_m.studio</div>
 					</div>
-					<div class="flex justify-between text-[#8a857a]" style="font:400 13px var(--font-sans)">
-						<span><?php echo esc_html( '日曜・月曜' ); ?></span>
-						<span class="font-semibold"><?php echo esc_html( '定休日' ); ?></span>
+				</a>
+				<a href="<?php echo esc_url( 'tel:00012345678' ); ?>" class="flex items-center gap-3.5 py-3.5 text-inherit no-underline cursor-pointer transition-opacity hover:opacity-70">
+					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/phone.svg"
+					     alt=""
+					     width="44" height="44"
+					     class="flex-shrink-0 rounded-xl"
+					     style="display:block;width:44px;height:44px">
+					<div>
+						<div class="text-brand-dark" style="font:600 14px var(--font-sans)"><?php echo esc_html( '090-7294-9494' ); ?></div>
+						<div class="text-[#8a857a]" style="font:400 11.5px var(--font-sans)">場合によっては電話に出られない場合は折り返しいたします。<br>冒頭に「体験レッスンのお問い合わせ」とお伝えください。</div>
 					</div>
-				</div>
+				</a>
 			</div>
 		</div>
 	</div>

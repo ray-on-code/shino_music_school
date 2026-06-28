@@ -50,11 +50,17 @@ get_header();
 </section>
 
 <!-- 生徒の声 -->
-<section class="bg-white">
+<section class="bg-white" id="voice">
 	<div class="max-w-[1080px] mx-auto" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px)">
-		<div data-reveal class="flex items-baseline gap-3.5 mb-5">
-			<h2 class="m-0 text-brand-dark" style="font:600 20px var(--font-serif);letter-spacing:.08em">生徒さん・保護者の声</h2>
-			<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.26em">VOICE</span>
+		<div data-reveal class="flex items-end justify-between flex-wrap gap-4 mb-7">
+			<div>
+				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">VOICE</span>
+				<h2 class="m-0 mt-2 text-brand-dark" style="font:600 clamp(22px,3vw,30px) var(--font-serif);letter-spacing:.08em">生徒さん・保護者の声</h2>
+			</div>
+			<a href="<?php echo esc_url( home_url( '/gallery/#voice' ) ); ?>"
+			   class="flex items-center gap-2 text-brand-dark no-underline font-bold text-[13px] transition-colors hover:text-brand-green">
+				もっと見る<span class="text-brand-orange">→</span>
+			</a>
 		</div>
 		<div data-stagger class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
 			<?php

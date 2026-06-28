@@ -20,10 +20,24 @@
 				受付 火〜土 10:00–20:00
 			</div>
 			<div class="flex gap-2">
-				<span class="w-10 h-10 rounded-full flex items-center justify-center text-[10px] cursor-pointer"
-				      style="border:1px solid rgba(247,243,234,.5);font-family:var(--font-mono)">IG</span>
-				<span class="w-10 h-10 rounded-full flex items-center justify-center text-[10px] cursor-pointer"
-				      style="border:1px solid rgba(247,243,234,.5);font-family:var(--font-mono)">LINE</span>
+				<a href="<?php echo esc_url( 'https://www.instagram.com/sora_piano_studio/' ); ?>"
+				   target="_blank" rel="noopener noreferrer"
+				   aria-label="Instagram"
+				   class="transition-opacity hover:opacity-80">
+					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/instagram.svg"
+					     alt=""
+					     width="40" height="40"
+					     style="display:block;width:40px;height:40px">
+				</a>
+				<a href="<?php echo esc_url( 'https://line.me/R/ti/p/@sora-piano' ); ?>"
+				   target="_blank" rel="noopener noreferrer"
+				   aria-label="LINE"
+				   class="transition-opacity hover:opacity-80">
+					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/line.svg"
+					     alt=""
+					     width="40" height="40"
+					     style="display:block;width:40px;height:40px">
+				</a>
 			</div>
 			<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
 			   class="self-start flex items-center gap-2 bg-brand-orange text-white no-underline rounded-full text-[13px] font-bold transition-colors hover:bg-[#c96f42]"
