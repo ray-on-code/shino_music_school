@@ -71,6 +71,21 @@
     document.querySelectorAll('[data-reveal]').forEach(function (el) { handle(el, 0); });
   }
 
+  /* ── フローティング CTA フェードイン ── */
+  function initFloatingCta() {
+    var trigger = document.getElementById('chiikiSection');
+    var cta     = document.getElementById('floatingCta');
+    if (!trigger || !cta) return;
+    var obs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        cta.style.opacity       = '1';
+        cta.style.pointerEvents = 'auto';
+        obs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    obs.observe(trigger);
+  }
+
   /* ── ハンバーガーメニュー ── */
   function initMenu() {
     var toggle  = document.getElementById('menuToggle');
@@ -118,6 +133,7 @@
   window.addEventListener('resize', setHeaderHeight, { passive: true });
   document.addEventListener('DOMContentLoaded', function () {
     setHeaderHeight();
+    initFloatingCta();
     initMenu();
     onScroll();
     updateHeroCurve();

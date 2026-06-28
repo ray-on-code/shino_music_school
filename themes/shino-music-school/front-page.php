@@ -79,7 +79,7 @@ get_header();
 </section>
 
 <!-- ===== 地域・想い ===== -->
-<section class="relative overflow-hidden" style="background:#7E8B6B;color:#F7F3EA">
+<section id="chiikiSection" class="relative overflow-hidden" style="background:#7E8B6B;color:#F7F3EA">
 	<div class="absolute inset-0 bg-brand-light flex items-end justify-end p-4">
 		<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">教室周辺の町並み・外観</span>
 	</div>
@@ -354,9 +354,9 @@ get_header();
 </section>
 
 <!-- ===== フローティング CTA ===== -->
-<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
+<a id="floatingCta" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
    class="fixed right-4 bottom-4 z-[60] flex items-center gap-3 text-white no-underline rounded-[18px] cursor-pointer hover:bg-[#c96f42] transition-colors"
-   style="background:#D67A4C;padding:13px 18px 13px 15px;box-shadow:0 12px 30px rgba(214,122,76,.45);animation:floatY 4s ease-in-out infinite">
+   style="background:#D67A4C;padding:13px 18px 13px 15px;box-shadow:0 12px 30px rgba(214,122,76,.45);animation:floatY 4s ease-in-out infinite;opacity:0;pointer-events:none;transition:opacity 0.6s ease">
 	<span class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-xl">♪</span>
 	<span class="flex flex-col leading-[1.35] text-left">
 		<span style="font:400 10px var(--font-sans);opacity:.92">かんたん・無料</span>
