@@ -21,11 +21,14 @@ get_header();
 	</div>
 </section>
 
-<!-- 地図プレースホルダー -->
+<!-- Google マップ -->
 <section data-reveal>
 	<div class="max-w-[1080px] mx-auto" style="padding:clamp(36px,4vw,56px) clamp(18px,4vw,40px)">
-		<div class="rounded-[22px] bg-brand-light flex items-end justify-end p-4" style="min-height:clamp(280px,40vw,420px);box-shadow:0 16px 40px rgba(52,64,47,.12)">
-			<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">Googleマップ等の地図</span>
+		<div class="rounded-[22px] overflow-hidden" style="box-shadow:0 16px 40px rgba(52,64,47,.12)">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.3183968744015!2d130.3956325!3d33.545102899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191f9c5ba3875%3A0x89108d893d3192f!2z44GX44Gu44Gv44KJ6Z-z5qW95pWZ5a6k!5e0!3m2!1sja!2sjp!4v1782631276953!5m2!1sja!2sjp"
+			        width="100%" height="420" style="border:0;display:block;"
+			        allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+			        title="しのはら音楽教室 地図"></iframe>
 		</div>
 	</div>
 </section>
