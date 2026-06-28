@@ -25,7 +25,7 @@ get_header();
 
 		<!-- Ivory curved panel -->
 		<svg viewBox="0 0 100 100" preserveAspectRatio="none"
-		     class="absolute inset-0 w-full h-full block pointer-events-none">
+		     class="absolute inset-0 w-full h-full block pointer-events-none ivory-svg">
 			<path id="heroCurve" d="M0,0 L42,0 Q58,50 30,100 L0,100 Z" fill="#F7F3EA"></path>
 		</svg>
 
@@ -129,7 +129,7 @@ get_header();
 			foreach ( $news_items as $i => $item ) :
 				$border_b = ( $i === count( $news_items ) - 1 ) ? 'border-b' : '';
 			?>
-			<a class="flex flex-wrap items-center gap-3.5 no-underline text-inherit transition-colors hover:bg-[#FBF8F0] <?php echo esc_attr( $border_b ); ?>"
+			<a href="#" class="flex flex-wrap items-center gap-3.5 no-underline text-inherit transition-colors hover:bg-[#FBF8F0] <?php echo esc_attr( $border_b ); ?>"
 			   style="padding:17px 4px;border-top:1px solid rgba(52,64,47,.1)">
 				<span class="text-[#8a857a] w-24" style="font:500 13px var(--font-mono)"><?php echo esc_html( $item['date'] ); ?></span>
 				<span class="text-white text-[11px] font-medium px-2.5 py-1 rounded-md"
