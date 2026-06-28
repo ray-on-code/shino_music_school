@@ -96,6 +96,14 @@
     if (overlay)  overlay.addEventListener('click', close);
   }
 
+  /* ── ヘッダー高さを CSS 変数にセット ── */
+  function setHeaderHeight() {
+    var hdr = document.getElementById('siteHeader');
+    if (hdr) {
+      document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px');
+    }
+  }
+
   /* ── 初期化 ── */
   var rafPending = false;
   window.addEventListener('scroll', function () {
@@ -107,7 +115,9 @@
       });
     }
   }, { passive: true });
+  window.addEventListener('resize', setHeaderHeight, { passive: true });
   document.addEventListener('DOMContentLoaded', function () {
+    setHeaderHeight();
     initMenu();
     onScroll();
     updateHeroCurve();
