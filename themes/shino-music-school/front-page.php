@@ -314,8 +314,11 @@ get_header();
 <section>
 	<div class="max-w-[1080px] mx-auto" style="padding:clamp(44px,6vw,72px) clamp(18px,4vw,40px)">
 		<div data-stagger class="grid items-center gap-[clamp(18px,2.6vw,32px)]" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-			<div class="w-full min-h-[230px] h-full rounded-[20px] bg-brand-light flex items-end justify-end p-4" style="box-shadow:0 12px 30px rgba(52,64,47,.1)">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">地図サムネイル</span>
+			<div class="w-full rounded-[20px] overflow-hidden" style="min-height:230px;box-shadow:0 12px 30px rgba(52,64,47,.1)">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.3183968744015!2d130.3956325!3d33.545102899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191f9c5ba3875%3A0x89108d893d3192f!2z44GX44Gu44Gv44KJ6Z-z5qW95pWZ5a6k!5e0!3m2!1sja!2sjp!4v1782631276953!5m2!1sja!2sjp"
+				        width="100%" height="260" style="border:0;display:block;"
+				        allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+				        title="しのはら音楽教室 地図"></iframe>
 			</div>
 			<div class="flex flex-col gap-3">
 				<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">ACCESS</span>
