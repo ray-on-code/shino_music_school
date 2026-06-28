@@ -31,16 +31,18 @@ get_header();
 		<div data-stagger class="grid gap-3.5" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-auto-rows:180px">
 			<?php
 			$gallery_items = array(
-				array( 'label' => 'ステージ全景',  'span' => 'row-span-2 h-full' ),
-				array( 'label' => '演奏する生徒',  'span' => 'h-full' ),
-				array( 'label' => '連弾',          'span' => 'h-full' ),
-				array( 'label' => '記念撮影',      'span' => 'h-full' ),
-				array( 'label' => '花束',          'span' => 'h-full' ),
+				array( 'label' => 'ステージ全景', 'file' => 'gallery-stage.jpg',       'span' => 'row-span-2 h-full' ),
+				array( 'label' => '演奏する生徒', 'file' => 'gallery-performance.jpg', 'span' => 'h-full' ),
+				array( 'label' => '連弾',         'file' => 'gallery-duet.jpg',        'span' => 'h-full' ),
+				array( 'label' => '記念撮影',     'file' => 'gallery-photo.jpg',       'span' => 'h-full' ),
+				array( 'label' => '花束',         'file' => 'gallery-bouquet.jpg',     'span' => 'h-full' ),
 			);
 			foreach ( $gallery_items as $item ) :
 			?>
-			<div class="bg-brand-light rounded-[18px] flex items-end justify-end p-3 <?php echo esc_attr( $item['span'] ); ?>">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)"><?php echo esc_html( $item['label'] ); ?></span>
+			<div class="rounded-[18px] overflow-hidden <?php echo esc_attr( $item['span'] ); ?>">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/<?php echo esc_attr( $item['file'] ); ?>"
+				     alt="<?php echo esc_attr( $item['label'] ); ?>" class="w-full h-full"
+				     style="object-fit:cover;object-position:center" loading="lazy" decoding="async">
 			</div>
 			<?php endforeach; ?>
 		</div>

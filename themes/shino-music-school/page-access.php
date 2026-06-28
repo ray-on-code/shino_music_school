@@ -57,11 +57,15 @@ get_header();
 		</div>
 		<!-- 外観写真 -->
 		<div data-stagger class="grid grid-cols-2 gap-3">
-			<div class="bg-brand-light rounded-[16px] flex items-end justify-end p-3" style="aspect-ratio:4/3">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">教室外観</span>
+			<div class="rounded-[16px] overflow-hidden" style="aspect-ratio:4/3">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/access-exterior.jpg"
+				     alt="教室外観" class="w-full h-full" style="object-fit:cover;object-position:center"
+				     loading="lazy" decoding="async">
 			</div>
-			<div class="bg-brand-light rounded-[16px] flex items-end justify-end p-3" style="aspect-ratio:4/3">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">入口・表札</span>
+			<div class="rounded-[16px] overflow-hidden" style="aspect-ratio:4/3">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/access-entrance.jpg"
+				     alt="入口・表札" class="w-full h-full" style="object-fit:cover;object-position:center"
+				     loading="lazy" decoding="async">
 			</div>
 		</div>
 	</div>

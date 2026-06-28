@@ -26,16 +26,18 @@ get_header();
 	<div data-stagger class="max-w-[1080px] mx-auto grid gap-4" style="padding:clamp(40px,5vw,64px) clamp(18px,4vw,40px);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
 		<?php
 		$courses = array(
-			array( 'id' => 'kids',     'tag' => '3歳〜小学生', 'title' => '子どもコース',      'img_label' => '子どものレッスン', 'desc' => '音感やリズム感を育みながら、楽譜を読む力も少しずつ。「楽しい」を入り口に基礎を身につけます。' ),
-			array( 'id' => 'adult',    'tag' => '大人・趣味',  'title' => '大人コース',          'img_label' => '大人のレッスン',   'desc' => '弾きたい曲を中心に、自分のペースで。お仕事帰りに通える夜の時間帯もご用意しています。' ),
-			array( 'id' => 'beginner', 'tag' => 'はじめて',    'title' => '初心者コース',        'img_label' => '鍵盤に触れる手',   'desc' => '楽譜が読めなくても大丈夫。ドの位置から、一音ずつ。安心してはじめられます。' ),
-			array( 'id' => 'return',   'tag' => '経験者・再開', 'title' => '再開・経験者コース', 'img_label' => '楽譜と演奏',       'desc' => 'ブランクがあっても心配いりません。これまでの経験を活かし、もう一度音楽を楽しみましょう。' ),
+			array( 'id' => 'kids',     'tag' => '3歳〜小学生',  'title' => '子どもコース',       'img' => 'lesson-kids.jpg',     'img_label' => '子どものレッスン', 'desc' => '音感やリズム感を育みながら、楽譜を読む力も少しずつ。「楽しい」を入り口に基礎を身につけます。' ),
+			array( 'id' => 'adult',    'tag' => '大人・趣味',   'title' => '大人コース',          'img' => 'lesson-adult.jpg',    'img_label' => '大人のレッスン',   'desc' => '弾きたい曲を中心に、自分のペースで。お仕事帰りに通える夜の時間帯もご用意しています。' ),
+			array( 'id' => 'beginner', 'tag' => 'はじめて',     'title' => '初心者コース',        'img' => 'lesson-beginner.jpg', 'img_label' => '鍵盤に触れる手',   'desc' => '楽譜が読めなくても大丈夫。ドの位置から、一音ずつ。安心してはじめられます。' ),
+			array( 'id' => 'return',   'tag' => '経験者・再開', 'title' => '再開・経験者コース',  'img' => 'lesson-return.jpg',   'img_label' => '楽譜と演奏',       'desc' => 'ブランクがあっても心配いりません。これまでの経験を活かし、もう一度音楽を楽しみましょう。' ),
 		);
 		foreach ( $courses as $c ) :
 		?>
 		<div class="bg-white rounded-[20px] overflow-hidden" style="box-shadow:0 12px 30px rgba(52,64,47,.08)">
-			<div class="min-h-[150px] bg-brand-light flex items-end justify-end p-3">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)"><?php echo esc_html( $c['img_label'] ); ?></span>
+			<div class="min-h-[150px] overflow-hidden">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/<?php echo esc_attr( $c['img'] ); ?>"
+				     alt="<?php echo esc_attr( $c['img_label'] ); ?>" class="w-full"
+				     style="object-fit:cover;object-position:center;min-height:150px;height:150px" loading="lazy" decoding="async">
 			</div>
 			<div class="p-6">
 				<span class="text-white text-[10px] font-medium px-2.5 py-1 rounded-md"

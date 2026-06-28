@@ -109,8 +109,6 @@ get_header();
 			    style="writing-mode:vertical-rl;font-family:var(--font-serif);font-weight:600;font-size:clamp(28px,4.6vw,48px);line-height:1.5;letter-spacing:.16em;text-shadow:0 2px 18px rgba(52,64,47,.4)">
 				音楽のある暮らしを、<br>このまちで。
 			</h2>
-			<span data-reveal data-reveal-dist="70" data-reveal-dur="0.9" class="mt-1.5"
-			      style="writing-mode:vertical-rl;font:500 11px var(--font-mono);letter-spacing:.4em;color:rgba(247,243,234,.85)">MUSIC IN YOUR TOWN</span>
 		</div>
 	</div>
 </section>
@@ -186,10 +184,9 @@ get_header();
 			     loading="lazy" decoding="async">
 		</div>
 		<div class="flex flex-col gap-3.5">
-			<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">PIANO TEACHER</span>
+			<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">PIANO INSTRUCTOR</span>
 			<div class="flex items-baseline gap-3.5">
-				<h2 class="m-0 text-brand-dark" style="font:600 clamp(24px,3vw,32px) var(--font-serif);letter-spacing:.08em">講師名 篠原朋子</h2>
-				<span class="text-[#8a857a]" style="font:400 11px var(--font-mono);letter-spacing:.2em">PIANO INSTRUCTOR</span>
+				<h2 class="m-0 text-brand-dark" style="font:600 clamp(24px,3vw,32px) var(--font-serif);letter-spacing:.08em">篠原 朋子</h2>
 			</div>
 			<p class="m-0 text-[#5d584f]" style="font:400 13.5px/2 var(--font-sans)">
 				「音楽って楽しい！あの曲が弾けた！」その喜びを何より大切にしています。一人ひとりの「弾いてみたい」という気持ちを尊重し、目標に寄り添ったレッスンを心がけています。
@@ -248,8 +245,10 @@ get_header();
 					様子を見る<span class="text-brand-orange">→</span>
 				</a>
 			</div>
-			<div class="min-h-[260px] h-full order-1 bg-brand-light flex items-end justify-end p-4">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">発表会のステージ</span>
+			<div class="min-h-[260px] h-full order-1 overflow-hidden">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/stage.jpg"
+				     alt="発表会のステージ" class="w-full h-full" style="object-fit:cover;object-position:center"
+				     loading="lazy" decoding="async">
 			</div>
 		</div>
 	</div>
