@@ -177,10 +177,13 @@ get_header();
 <section class="bg-white">
 	<div data-stagger class="max-w-[1080px] mx-auto grid items-center gap-[clamp(24px,3.6vw,48px)]"
 	     style="padding:clamp(48px,7vw,84px) clamp(18px,4vw,40px);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-		<!-- 画像プレースホルダー -->
-		<div class="min-h-[320px] h-full bg-brand-light rounded-[22px] flex items-end justify-end p-4"
+		<div class="min-h-[320px] h-full rounded-[22px] overflow-hidden"
 		     style="box-shadow:0 16px 40px rgba(52,64,47,.12)">
-			<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">講師の顔写真</span>
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/teacher.jpg"
+			     alt="講師 篠原"
+			     class="w-full h-full"
+			     style="object-fit:cover;object-position:center 20%"
+			     loading="lazy" decoding="async">
 		</div>
 		<div class="flex flex-col gap-3.5">
 			<span class="text-brand-green" style="font:500 10px var(--font-mono);letter-spacing:.3em">PIANO TEACHER</span>
@@ -215,8 +218,12 @@ get_header();
 	<div class="max-w-[1180px] mx-auto flex flex-col" style="padding:clamp(36px,5vw,60px) clamp(18px,4vw,40px);gap:clamp(18px,2.4vw,30px)">
 		<!-- レッスン -->
 		<div data-reveal class="grid rounded-[22px] overflow-hidden" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));box-shadow:0 14px 36px rgba(52,64,47,.08)">
-			<div class="min-h-[260px] h-full w-full bg-brand-light flex items-end justify-end p-4">
-				<span class="text-brand-green text-xs" style="font-family:var(--font-mono)">レッスンの様子</span>
+			<div class="min-h-[260px] h-full w-full overflow-hidden">
+				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/lesson.jpg"
+				     alt="レッスン室の様子"
+				     class="w-full h-full"
+				     style="object-fit:cover;object-position:center"
+				     loading="lazy" decoding="async">
 			</div>
 			<div class="bg-brand-green text-[#F7F3EA] flex flex-col justify-center gap-3.5" style="padding:clamp(28px,3.6vw,46px)">
 				<span style="font:500 10px var(--font-mono);letter-spacing:.3em;color:rgba(247,243,234,.75)">LESSON</span>
