@@ -69,21 +69,16 @@
       Array.from(c.children).forEach(function (ch, i) { handle(ch, Math.min(i, 6) * 0.09); });
     });
     document.querySelectorAll('[data-reveal]').forEach(function (el) { handle(el, 0); });
-  }
 
-  /* ── フローティング CTA フェードイン ── */
-  function initFloatingCta() {
-    var trigger = document.getElementById('chiikiSection');
-    var cta     = document.getElementById('floatingCta');
-    if (!trigger || !cta) return;
-    var obs = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
+    var chiiki = document.getElementById('chiikiSection');
+    var cta    = document.getElementById('floatingCta');
+    if (chiiki && cta && cta.getAttribute('data-cta-shown') !== '1') {
+      if (chiiki.getBoundingClientRect().top < trigger) {
         cta.style.opacity       = '1';
         cta.style.pointerEvents = 'auto';
-        obs.disconnect();
+        cta.setAttribute('data-cta-shown', '1');
       }
-    }, { threshold: 0.1 });
-    obs.observe(trigger);
+    }
   }
 
   /* ── ハンバーガーメニュー ── */
@@ -133,7 +128,6 @@
   window.addEventListener('resize', setHeaderHeight, { passive: true });
   document.addEventListener('DOMContentLoaded', function () {
     setHeaderHeight();
-    initFloatingCta();
     initMenu();
     onScroll();
     updateHeroCurve();
