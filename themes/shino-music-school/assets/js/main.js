@@ -70,14 +70,12 @@
     });
     document.querySelectorAll('[data-reveal]').forEach(function (el) { handle(el, 0); });
 
-    var chiiki = document.getElementById('chiikiSection');
-    var cta    = document.getElementById('floatingCta');
-    if (chiiki && cta && cta.getAttribute('data-cta-shown') !== '1') {
-      if (chiiki.getBoundingClientRect().top < trigger) {
-        cta.style.opacity       = '1';
-        cta.style.pointerEvents = 'auto';
-        cta.setAttribute('data-cta-shown', '1');
-      }
+    var chiiki  = document.getElementById('chiikiSection');
+    var cta     = document.getElementById('floatingCta');
+    if (chiiki && cta) {
+      var show = chiiki.getBoundingClientRect().top < trigger;
+      cta.style.opacity       = show ? '1' : '0';
+      cta.style.pointerEvents = show ? 'auto' : 'none';
     }
   }
 
