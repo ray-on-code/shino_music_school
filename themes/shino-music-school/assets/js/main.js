@@ -96,7 +96,16 @@
   }
 
   /* ── 初期化 ── */
-  window.addEventListener('scroll', onScroll, { passive: true });
+  var rafPending = false;
+  window.addEventListener('scroll', function () {
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(function () {
+        rafPending = false;
+        onScroll();
+      });
+    }
+  }, { passive: true });
   document.addEventListener('DOMContentLoaded', function () {
     initMenu();
     onScroll();

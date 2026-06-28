@@ -28,6 +28,11 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* ===== ヒーロー ivory パネル ===== */
+#heroCurve {
+  transition: d 60ms linear;
+}
+
 /* ===== ベース ===== */
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
