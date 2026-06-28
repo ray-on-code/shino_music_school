@@ -10,8 +10,8 @@
 	     style="padding:clamp(44px,5vw,64px) clamp(18px,4vw,40px) 28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
 		<!-- ロゴ・住所 -->
 		<div class="flex flex-col gap-4">
-			<img src="https://shino-music.com/_astro/ShinoharaMusicSchool.CpggLnVA.svg"
-			     alt="しのはら音楽教室" referrerpolicy="no-referrer"
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg"
+			     alt="しのはら音楽教室"
 			     style="height:30px;width:auto;display:block">
 			<div style="font:300 12.5px/2 var(--font-sans);color:rgba(247,243,234,.9)">
 				〒811-1362<br>
